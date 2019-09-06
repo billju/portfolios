@@ -1,0 +1,85 @@
+.ezmap{
+    position: relative;
+    user-select: none;
+    cursor: grab;
+    overflow: hidden;
+}
+.ezmap:active{
+  cursor: grabbing;
+}
+.ezmap svg circle{
+    cursor: pointer;
+}
+.tile-pane{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.popup-pane{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#hint{
+  border: 1px solid #000;
+  padding: 5px;
+  background: rgba(0,0,0,0.3);
+  position: fixed;
+}
+.close{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    opacity: 0.3;
+}
+.close:hover{
+    opacity: 1;
+}
+.close::before, .close::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    height: 16px;
+    width: 2px;
+    background-color: #fff;
+    transform: rotate(45deg);
+}
+.close::after{
+    transform: rotate(-45deg);
+}
+.popup{
+    position: absolute;
+    display: inline;
+    padding: 5px 10px;
+    padding-right: 20px;
+    border-radius: 5px;
+    background: #666;
+    color: #fff;
+    transform: translate(-50%,calc(-100% - 10px));
+    user-select: text;
+    cursor: auto;
+}
+.popup::after{
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 10px solid;
+    border-color: #666 transparent transparent transparent;
+}
+.popup-lower{
+    transform: translate(-50%,10px);
+}
+.popup-lower::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,-100%);
+    border: 10px solid;
+    border-color: transparent transparent #666 transparent;
+}
