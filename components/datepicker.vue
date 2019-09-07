@@ -2,7 +2,7 @@
   <div class="datepicker">
     <div class="overflow-hidden py-2 bg-primary text-light">
       <transition name="slide-up">
-        <div class="text-center w-100p" :key="date">{{showDate}}</div>
+        <div class="text-center w-100p" :key="showDate">{{showDate}}</div>
       </transition>
     </div>
     <div class="d-flex flex-wrap w-100p overflow-y-scroll" v-if="!year">
@@ -18,7 +18,7 @@
           <div class="btn" :key="month">{{months[month-1]}} {{year}}</div>
         </transition>
       </div>
-      <div class="btn" @click="setCalendar(next.y,next.m);swipe_left=true;">＞</div>
+      <div class="btn text-right" @click="setCalendar(next.y,next.m);swipe_left=true;">＞</div>
     </div>
     <table v-if="year&&month">
         <tbody>
@@ -46,14 +46,14 @@ export default {
    name: 'datepicker',
     data(){
         return {
-        year: 2019, month: 7,
-        date: {y:2019,m:7,d:1,weekday:1},
-        next: {y:2019,m:6}, last:{y:2019,m:4},
-        weeks: [[{y:2019,m:4,d:28},{y:2019,m:4,d:29}]],
-        years: [2018,2019],
-        months: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-        weekdays: ['日','一','二','三','四','五','六'],
-        swipe_left: false,
+            year: 2019, month: 7,
+            date: {y:2019,m:7,d:1,weekday:1},
+            next: {y:2019,m:6}, last:{y:2019,m:4},
+            weeks: [[{y:2019,m:4,d:28},{y:2019,m:4,d:29}]],
+            years: [2018,2019],
+            months: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            weekdays: ['日','一','二','三','四','五','六'],
+            swipe_left: false,
         }
     },
     methods:{
@@ -100,7 +100,7 @@ export default {
     },
     computed:{
         showDate(){
-        return this.date.y+'年'+this.date.m+'月'+this.date.d+'日 星期'+this.weekdays[this.date.weekday]
+            return this.date.y+'年'+this.date.m+'月'+this.date.d+'日 星期'+this.weekdays[this.date.weekday]
         }
     },
     mounted(){
@@ -130,7 +130,7 @@ export default {
 }
 
 .datepicker td:hover {
-  background: #b2ebf2;
+  background: #00bcd4;
   color: #fff;
   cursor: pointer;
 }
@@ -148,6 +148,15 @@ export default {
 .text-light{
   color: #fff;
 }
+.text-center{
+  text-align: center;
+}
+.text-right{
+  text-align: right;
+}
+.text-muted{
+  color: #aaa;
+}
 .py-2{
   padding-top: 5px;
   padding-bottom: 5px;
@@ -157,6 +166,9 @@ export default {
 }
 .flex-wrap{
   flex-wrap: wrap;
+}
+.justify-content-between{
+  justify-content: space-between;
 }
 .align-items-center{
   align-items: center;
@@ -178,12 +190,14 @@ export default {
 }
 .btn{
   cursor: pointer;
+  font-weight: bold;
 }
 .date-btn{
   color: #00bcd4;
   border: 1px solid #00bcd4;
   border-radius: 5px;
   padding: 5px 10px;
+  text-align: center;
   cursor: pointer;
 }
 

@@ -16,10 +16,17 @@
 import { setTimeout } from 'timers';
 export default {
     name: 'knob',
-    props: ['max','min','label','container'],
+    props: {
+        'max':{type:Number,default:1},
+        'min':{type:Number,default:0},
+        'step':{type:Number,default:0.01},
+        'value':Number,
+        'label':String,
+        'container':{}
+    },
     data(){
         return{
-            val: 0, pct:0.3, clientX:0, clientY: 0, active: false,
+            val:0.5, clientX:0, clientY: 0, active: false, bindedContainer: null,
         }
     },
     methods: {
@@ -27,36 +34,46 @@ export default {
             this.active = true
             this.clientX = e.clientX==undefined?e.targetTouches[0].pageX:e.clientX
             this.clientY = e.clientY==undefined?e.targetTouches[0].pageY:e.clientY
+            if(this.bindedContainer!=this.container){
+                this.container = this.container?this.container:this.$refs.knob
+                this.container.addEventListener('mousemove',this.handleEventMove)
+                this.container.addEventListener('mouseup',this.handleEventEnd)
+                this.container.addEventListener('mouseleave',this.handleEventEnd)
+                this.bindedContainer=this.container
+            }
         },
         handleEventMove(e){
-            let clientX = e.clientX==undefined?e.targetTouches[0].pageX:e.clientX,
-                clientY = e.clientY==undefined?e.targetTouches[0].pageY:e.clientY
             if(this.active){
                 e.preventDefault()
-                let max = this.max==undefined?1:this.max,
+                let clientX = e.clientX==undefined?e.targetTouches[0].pageX:e.clientX,
+                    clientY = e.clientY==undefined?e.targetTouches[0].pageY:e.clientY,
+                    max = this.max==undefined?1:this.max,
                     min = this.min==undefined?0:this.min,
                     movedX = clientX-this.clientX,
                     movedY = clientY-this.clientY
                 this.val+= (movedX-movedY)*(max-min)*0.005
+                this.val = Math.round(this.val/this.step)*this.step
+                this.val = this.val.toFixed(12)*1 //deal with float flush
                 this.val = (this.val>max)?max:(this.val<min)?min:this.val
-                this.pct = (this.val-min)/(max-min)
                 // knob.dash = Math.round(184-reg*184)
                 // knob.deg = Math.round(-132+reg*264)
+                this.$emit('input',this.val)
+                this.clientX = clientX;
+                this.clientY = clientY;
             }
-            this.clientX = clientX;
-            this.clientY = clientY;
         },
         handleEventEnd(){
             this.active = false
         }
     },
-    mounted(){
-        setTimeout(()=>{
-            this.container = this.container?this.container:this.$refs.knob
-            this.container.addEventListener('mousemove',this.handleEventMove)
-            this.container.addEventListener('mouseup',this.handleEventEnd)
-            this.container.addEventListener('mouseleave',this.handleEventEnd)
-        },1000)
+    computed:{
+        pct(){
+            let max = this.max==undefined?1:this.max,
+                min = this.min==undefined?0:this.min,
+                val = this.value==undefined?this.val:this.value
+            val = (val>max)?max:(val<min)?min:val
+            return (val-min)/(max-min)
+        }
     }
 }
 </script>

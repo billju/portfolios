@@ -4,17 +4,17 @@
       <div class="hour-niddle" :style="{transform:'rotate('+hour/hours.length*360+'deg)',boxShadow:'0 0 5px 2px '+color}"></div>
       <div class="minute-niddle" :style="{transform:'rotate('+minute/minutes.length*360+'deg)',boxShadow:'0 0 5px 2px '+color}"></div>
       <div class="center-dot" :style="{boxShadow:'0 0 5px 2px '+color}"></div>
-      <div class="number" v-for="h in hours" :key="h" :style="hourStyle(h)" @mouseover="handleMouseover('hour',hours.length-1,h)" @mousedown="hour=h">{{h}}</div>
-      <div class="number" v-for="m in minutes" :key="m" :style="minuteStyle(m)" @mouseover="handleMouseover('minute',minutes.length-1,m)" @mousedown="minute=m">{{(m%5==0||minute==m)?m:''}}</div>
+      <div class="number" v-for="h in hours" :key="'h'+h" :style="hourStyle(h)" @mouseover="handleMouseover('hour',hours.length-1,h)" @mousedown="hour=h">{{h}}</div>
+      <div class="number" v-for="m in minutes" :key="'m'+m" :style="minuteStyle(m)" @mouseover="handleMouseover('minute',minutes.length-1,m)" @mousedown="minute=m">{{(m%5==0||minute==m)?m:''}}</div>
     </div>
   </div>  
 </template>
 
 <script>
 export default {
+props: {size:{type:Number,default:280}},
 data(){
     return {
-      size: 280,
       hours: Array.from(Array(24).keys()),
       minutes: Array.from(Array(60).keys()),
       hour: 0,
@@ -47,7 +47,7 @@ data(){
       return {
         top: center-r*Math.sin((num/den+1/4)*Math.PI*2)+'px',
         left: center-r*Math.cos((num/den+1/4)*Math.PI*2)+'px',
-        color: this.hour==num?'white':'#666',
+        color: this.hour==num?'white':'#333',
         background: this.hour==num?'#00bcd4':'transparent'
       }
     },
@@ -72,7 +72,7 @@ data(){
 
 <style scoped>
 .clockpicker{
-  background: linear-gradient(180deg, rgba(0,188,212,1) 0%, rgba(255,255,255,1) 100%);
+  background: #00bcd4;
   padding-top: 20px;
   padding-bottom: 20px;
   position: relative;

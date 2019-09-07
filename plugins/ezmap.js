@@ -50,21 +50,21 @@ class Bounds{
         return new Point(this.max.x-this.min.x, this.max.y-this.min.y)
     }
 }
-function LatLngBounds(min, max){
-    this.min = new LatLng(min.lat,min.lng)
-    this.max = new LatLng(max.lat,max.lng)
-}
-LatLngBounds.prototype = {
+class LatLngBounds{
+    constructor(min, max){
+        this.min = new LatLng(min.lat,min.lng)
+        this.max = new LatLng(max.lat,max.lng)
+    }
     overlaps(bounds){
         let lat = (bounds.max.lat > this.min.lat) && (bounds.min.lat < this.max.lat)
         let lng = (bounds.max.lng > this.min.lng) && (bounds.min.lng < this.max.lng)
         return lat&&lng
-    },
+    }
     contains(latlng){
         let lat = (latlng.lat > this.min.lat) && (latlng.lat < this.max.lat)
         let lng = (latlng.lng > this.min.lng) && (latlng.lng < this.max.lng)
         return lat&&lng
-    },
+    }
 }
 
 var SphericalMercator = {

@@ -6,38 +6,44 @@
         <stop offset="100%" stop-color="#112266"></stop>
       </linearGradient>
     </svg>
-    <svg class="waveform" viewbox="0 0 100 100" @click="type='sine';left=0">
+    <svg ref="sine" class="waveform" viewbox="0 0 100 100" @click="setMarker('sine')">
       <path d="M20 50 Q35 0,50 50 Q65 100,80 50" fill="url(#gradient)"></path>
     </svg>
-    <svg class="waveform" viewbox="0 0 100 100" @click="type='square';left=105">
+    <svg ref="square" class="waveform" viewbox="0 0 100 100" @click="setMarker('square')">
       <polyline points="20,70 20,30 50,30 50,70 80,70 80,30" fill="url(#gradient)"></polyline>
     </svg>
-    <svg class="waveform" viewbox="0 0 100 100" @click="type='pulse';left=210">
+    <svg ref="pulse" class="waveform" viewbox="0 0 100 100" @click="setMarker('pulse')">
       <polyline points="20,60 35,30 50,30 50,70 80,70 80,30" fill="url(#gradient)"></polyline>
     </svg>
-    <svg class="waveform" viewbox="0 0 100 100" @click="type='triangle';left=315">
+    <svg ref="triangle" class="waveform" viewbox="0 0 100 100" @click="setMarker('triangle')">
       <polyline points="20,50 35,30 65,70 80,50" fill="url(#gradient)"></polyline>
     </svg>
-    <svg class="waveform" viewbox="0 0 100 100" @click="type='sawtooth';left=420">
+    <svg ref="sawtooth" class="waveform" viewbox="0 0 100 100" @click="setMarker('sawtooth')">
       <polyline points="20,65 50,30 50,70 80,35" fill="url(#gradient)"></polyline>
     </svg>
-    <svg class="waveform" viewbox="0 0 100 100" @click="type='random';left=525">
+    <svg ref="random" class="waveform" viewbox="0 0 100 100" @click="setMarker('random')">
       <rect x="25" y="25" rx="10" ry="10" width="50" height="50"></rect>
       <circle cx="60" cy="40" r="4"></circle>
       <circle cx="50" cy="50" r="4"></circle>
       <circle cx="40" cy="60" r="4"></circle>
     </svg>
-    <div class="square-marker" :style="{left: left+'px'}"></div>
+    <div class="square-marker" :style="markerStyle"></div>
 </div>
 </template>
 
 <script>
 export default {
     name: 'osc',
-    props: ['audioContext','volume','detune','adsr','output'],
+    props: {
+      'audioContext':{},
+      'volume':{type:Number,default:0.2},
+      'detune':{type:Number,default:0},
+      'adsr':{type:Object},
+      'output': {}
+    },
     data(){
       return{
-        type:'sine', left: 0, osc: {}, gainNode: {}, defaultGain: 0.2,
+        type:'sine', markerStyle: {}, osc: {}, gainNode: {}, oscGain: null,
       }
     },
     methods: {
@@ -71,13 +77,15 @@ export default {
                     this.osc[freq].type = this.type
                 }
                 this.osc[freq].frequency.value = freq
-                this.osc[freq].detune.value = this.detune==undefined?0:this.detune
+                this.osc[freq].detune.value = this.detune
             }
             // connect audio context nodes
-            let oscGain = this.audioContext.createGain()
-            oscGain.gain.value = this.volume==undefined?this.defaultGain:this.volume
-            osc[freq].connect(oscGain)
-            oscGain.connect(this.gainNode[freq])
+            if(!this.oscGain){
+                this.oscGain = this.audioContext.createGain()
+            }
+            this.oscGain.gain.value = this.volume
+            osc[freq].connect(this.oscGain)
+            this.oscGain.connect(this.gainNode[freq])
             osc[freq].start(now)
             let outputNode = this.output==undefined?this.audioContext.destination:this.output
             this.gainNode[freq].connect(outputNode)
@@ -90,7 +98,7 @@ export default {
             }
         },
         createGainNode(now){
-            let adsr = Object.assign({a:0,aq:0,d:1,dq:0,s:1,r:0,rq:0},this.adsr==undefined?{}:this.adsr)
+            let adsr = Object.assign({a:0,aq:0,d:1,dq:0,s:1,r:0,rq:0},this.adsr)
             let gainNode = this.audioContext.createGain()
             let gain = gainNode.gain
             gain.linearRampToValueAtTime(0, now)
@@ -99,7 +107,22 @@ export default {
             gain.linearRampToValueAtTime(adsr.d+(1-adsr.d)*adsr.dq, now+adsr.a+adsr.s*0.5)
             gain.linearRampToValueAtTime(adsr.d, now+adsr.a+adsr.s)
             return gainNode
+        },
+        setMarker(waveform){
+            this.type = waveform
+            let child = this.$refs[waveform].getBoundingClientRect(),
+                parent = this.$refs[waveform].parentNode.getBoundingClientRect()
+            this.markerStyle = {left:child.x-parent.x+'px',top:child.y-parent.y+'px'}
+        },
+        modulate(){
+            for(let freq in this.osc){
+                this.osc[freq].detune.value = this.detune
+            }
+            this.oscGain.gain.value = this.volume
         }
+    },
+    mounted(){
+        window.addEventListener('resize',()=>{this.setMarker(this.type)})
     },
 }
 </script>

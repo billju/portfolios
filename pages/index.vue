@@ -1,29 +1,32 @@
 <template>
   <div ref="container" class="container">
     <!-- <freecell :steps="['送出訂單','付款方式','完成訂單']" :index="0" background="#00bcd4"/> -->
-    <!-- <waveform :audioContext="ctx" :input="this.masterGain"/>
-    <osc ref="osc" :adsr="{a:0,d:1,s:0.5,r:0.5}" :audioContext="ctx" :output="this.masterGain"/>
+    <waveform :audioContext="ctx" :input="this.biquadFilter"/>
+    <spectrum :audioContext="ctx" :input="this.biquadFilter"/>
+    <osc ref="osc" :adsr="{a:0,d:1,s:0.5,r:0.5}" :audioContext="ctx" :detune="detune" :volume="0.2" :output="this.masterGain"/>
     <pianokey @oscStart="oscStart" @oscStop="oscStop"/>
-    <knob ref="knob" label="volume" :container="container"/> -->
+    <knob label="detune" :container="container" :min="-100" :max="100" v-model="detune" @input="oscMod()"/>
+    <knob label="volume" :container="container" :min="0" :max="1" @input="masterGain.gain.value=$event"/>
+    <knob label="filter" :container="container" :min="5" :max="14" v-model="pow" @input="biquadFilter.frequency.value=Math.pow(2,$event)"/>
     <div ref="map" id="map"></div>
   </div>
 </template>
 
 <script>
-import freecell from '~/components/carousel.vue'
 import pianokey from '~/components/synth.key.vue'
 import osc from '~/components/synth.osc.vue'
-import waveform from '~/components/synth.spectrum.vue'
+import waveform from '~/components/synth.waveform.vue'
+import spectrum from '~/components/synth.spectrum.vue'
 import knob from '~/components/synth.knob.vue'
 import {EzMap,TileLayer} from '~/plugins/ezmap.js'
 
 export default {
   components: {
-    freecell, waveform,osc,pianokey,knob
+     waveform,spectrum,osc,pianokey,knob
   },
   data(){
     return{
-      ctx: {}, masterGain: {}, container: null,
+      ctx: {}, masterGain:{}, biquadFilter:{}, container: null, detune: 0, pow: 14,
     }
   },
   methods: {
@@ -33,11 +36,16 @@ export default {
     oscStop(freq){
       this.$refs.osc.oscStop(freq)
     },
+    oscMod(){
+      this.$refs.osc.modulate()
+    }
   },
   beforeMount(){
     this.ctx = new (window.AudioContext || window.webkitAudioContext)()
     this.masterGain = this.ctx.createGain()
-    this.masterGain.connect(this.ctx.destination)
+    this.biquadFilter = this.ctx.createBiquadFilter()
+    this.masterGain.connect(this.biquadFilter)
+    this.biquadFilter.connect(this.ctx.destination)
   },
   mounted(){
     this.container = this.$refs.container

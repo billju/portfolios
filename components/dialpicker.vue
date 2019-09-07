@@ -87,6 +87,7 @@ export default {
   color: #fff;
   font-family: sans-serif;
   font-weight: bold;
+  font-size: 24px;
   user-select: none;
 }
 .border {
