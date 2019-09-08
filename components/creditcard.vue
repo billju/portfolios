@@ -13,7 +13,7 @@
             <input class="input-number" type="number" v-model="card.c4" placeholder="****" @input="card.c4=limitLength($event,4,'MM')" @focus="card.c4=''" ref="c4" :style="{border:`2px solid ${color}`}"/>
             </div>
             <transition name="bounceIn">
-                <div class="text-danger" v-if="submit&&!validation.cardNumber">請填入正確格式</div>
+                <div class="text-danger" v-if="invalid.cardNumber">請填入正確格式</div>
             </transition>
         </div>
     </div>
@@ -22,11 +22,11 @@
         <div class="input-text">
             <div class="d-flex align-items-center">
             <input class="input-number" type="number" v-model="card.MM" placeholder="MM" @input="card.MM=limitLength($event,2,'YY')" @focus="card.MM=''" ref="MM" :style="{border:`2px solid ${color}`}"/>
-            <div class="text-bold mx-1">/</div>
+            <div class="text-bold text-center">/</div>
             <input class="input-number" type="number" v-model="card.YY" placeholder="YY" @input="card.YY=limitLength($event,2,'securityCode')" @focus="card.YY=''" ref="YY" :style="{border:`2px solid ${color}`}"/>
             </div>
             <transition name="bounceIn">
-                <div class="text-danger" v-if="submit&&!validation.YYMM">請填入年月後兩碼</div>
+                <div class="text-danger" v-if="invalid.MMYY">請填入年月後兩碼</div>
             </transition>
         </div>
     </div>
@@ -37,7 +37,7 @@
                 <input class="input-number" type="number" v-model="card.securityCode" placeholder="***" @input="card.securityCode=limitLength($event,3,'')" @focus="card.securityCode=''" ref="securityCode" :style="{border:`2px solid ${color}`}"/>
             </div>
             <transition name="bounceIn">
-                <div class="text-danger" v-if="submit&&!validation.securityCode">請填數三位數字</div>
+                <div class="text-danger" v-if="invalid.securityCode">請填數三位數字</div>
             </transition>
         </div>
     </div>
@@ -45,13 +45,23 @@
 </template>
 
 <script>
+import { setTimeout } from 'timers';
 export default {
     name: 'credit-card-input',
-    props: {submit:Boolean,theme:String},
+    props: {
+        submit:Boolean,
+        color: {
+            type:String,
+            default: '#000'
+        }
+    },
     data(){
         return{
             card: {
                 c1:'',c2:'',c3:'',c4:'',MM:'',YY:'',securityCode:''
+            },
+            invalid: {
+                cardNumber:false, MMYY: false, securityCode: false
             }
         }
     },
@@ -62,14 +72,33 @@ export default {
                     this.$refs[nextRef].focus()  
                 }
             }
+            this.clearRule()
+            this.emitValue()
             return e.target.value.length>num?e.target.value.slice(-num):e.target.value
         },
-    },
-    computed:{
-        color(){
-            return this.theme?this.theme:'#000'
+        emitValue(){
+            this.$emit('value',{
+                cardNumber: this.card.c1+this.card.c2+this.card.c3+this.card.c4,
+                MM: parseInt(this.card.MM),
+                YY: parseInt(this.card.YY),
+                securityCode: parseInt(this.card.securityCode)
+            })
+        },
+        clearRule(){
+            Object.keys(this.invalid).map(key=>this.invalid[key]=false)
+        },
+        validate(){  
+            this.clearRule()
+            setTimeout(()=>{
+                Object.assign(this.invalid,{
+                    cardNumber: (this.card.c1+this.card.c2+this.card.c3+this.card.c4).length<16,
+                    MMYY: (this.card.MM+this.card.YY).length<4,
+                    securityCode: this.card.securityCode.length<3
+                })
+                return Object.keys(this.invalid).every(key=>this.invalid[key]==false)
+            },100)
         }
-    }
+    },
 }
 </script>
 
@@ -82,6 +111,12 @@ export default {
 }
 .text-bold{
     font-weight: bold;
+}
+.text-center{
+    text-align: center;
+}
+.text-danger{
+    color: red;
 }
 .input-label{
     line-height: 30px;
@@ -103,5 +138,31 @@ input[type="number"]:focus{
 }
 input[type="number"]::-webkit-inner-spin-button{
     -webkit-appearance: none
+}
+.bounceIn-enter-active {
+    animation: bounceIn 0.5s;
+}
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+    20% {
+        transform: scale3d(1.1, 1.1, 1.1);
+    }
+    40% {
+        transform: scale3d(0.9, 0.9, 0.9);
+    }
+    60% {
+        opacity: 1;
+        transform: scale3d(1.03, 1.03, 1.03);
+    }
+    80% {
+        transform: scale3d(0.97, 0.97, 0.97);
+    }
+    100% {
+        opacity: 1;
+        transform: scale3d(1, 1, 1);
+    }
 }
 </style>

@@ -132,9 +132,8 @@ export default {
         })
       }
       Object.keys(this.slots).map(key=>{ //紀錄位置，作為判定點
-        this.slots[key] = {
-          l:this.$refs[key][0].offsetLeft,
-          t:this.$refs[key][0].offsetTop}
+        let rect = this.$refs[key][0].getBoundingClientRect()
+        this.slots[key] = {l:rect.x,t:rect.y}
       })
     },
     //花色轉顏色
@@ -268,6 +267,7 @@ export default {
       if(this.md.ref){
         // 搜尋滑鼠放開的位置所對應到的插槽，利用兩面逼近法
         // 排列必定是左上到右下，所以先比對篩選左上角的位置再取最後一個即可
+        
         var keys = Object.keys(this.slots).filter(k=>this.slots[k].l<this.md.x&&this.slots[k].t<this.md.y)
         // 但超過左邊的界線則是例外
         var slotRef = keys.length>0?keys[keys.length-1]:'init'
@@ -554,11 +554,15 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .container{
     width: fit-content;
     margin: 0 auto;
+    padding: 0;
     user-select: none;
+    position: relative;
+    min-height: calc(100vh - 40px);
+    margin-top: 40px;
 }
 .d-flex {
   display: flex;
@@ -572,7 +576,7 @@ export default {
   box-shadow: 0 0 0 1px #aaa inset;
   border-radius: 10px;
   color: #fff;
-  position: fixed;
+  position: absolute;
 }
 
 .red {
@@ -632,7 +636,7 @@ export default {
 }
 
 .btn-group {
-  position: fixed;
+  position: absolute;
   width: 100%;
   bottom: 10px;
   display: flex;
@@ -656,7 +660,7 @@ export default {
 }
 
 .flag {
-  position: fixed;
+  position: absolute;
   max-width: 500px;
   min-width: 260px;
   top: 50%;

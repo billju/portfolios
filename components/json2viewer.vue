@@ -26,7 +26,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .json-beautifier {
   white-space: pre;
   font-family: monospace;

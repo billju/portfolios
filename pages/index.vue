@@ -38,7 +38,7 @@ export default {
     },
     oscMod(){
       this.$refs.osc.modulate()
-    }
+    },
   },
   beforeMount(){
     this.ctx = new (window.AudioContext || window.webkitAudioContext)()

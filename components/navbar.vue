@@ -7,10 +7,10 @@
         <div></div>
       </div>
       <ul class="navbar-menu">
-        <li><a href="#">home</a></li>
-        <li><a href="#">portfolios</a></li>
-        <li><a href="#">articles</a></li>
-        <li><a href="#">about</a></li>
+        <li><a href="#">專案</a></li>
+        <li><a href="#">手刻組件</a></li>
+        <li><a href="#">經典遊戲</a></li>
+        <li><a href="#">關於</a></li>
       </ul>
     </div>
 </nav>
@@ -27,6 +27,7 @@ export default {
 .navbar {
   position: fixed;
   top: 0;
+  z-index: 946;
   width: 100%;
   background: rgba(0, 0, 0, 0.3);
 }

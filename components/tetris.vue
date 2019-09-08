@@ -429,6 +429,7 @@ export default {
   margin: 0 auto;
   padding: 0;
   max-width: 760px;
+  min-height: 100vh;
 }
 
 table {

@@ -81,7 +81,7 @@ export default {
   position: relative;
   width: 200px;
   height: 200px;
-  background: #333;
+  background: #00bcd4;
   display: flex;
   align-items: center;
   color: #fff;
@@ -92,9 +92,9 @@ export default {
 }
 .border {
   width: 100%;
-  height: 25px;
-  border-top: 1px solid #666;
-  border-bottom: 1px solid #666;
+  height: 28px;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
 }
 .dial{
   position: absolute;

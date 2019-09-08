@@ -3,24 +3,27 @@
     <div class="input-group">
       <div class="input-group-text">{{title}}</div>
       <div class="input-group-text">
-        <switch-toggle v-model="displayToggle"/>
+        <switcher v-model="displayToggle"/>
       </div>
       <input type="number" v-model.number="maxLength"/>
       <div class="input-group-text" @click="$emit('close-table',title)">
         <div class="close"></div>
       </div>
     </div>
-    <json-table :rows="rows" :toggle="displayToggle" :maxLen="maxLength" @emit-event="makeTable"></json-table>
+    <json2table :rows="rows" :toggle="displayToggle" :maxLen="maxLength" @emit-event="makeTable"/>
   </div>
 </template>
 
 <script>
-import switchToggle from './switch';
-import jsonTable from './jsontable.vue';
+import switcher from './switcher.vue';
+import json2table from './json2table.vue';
 export default {
     name: 'json-table-container',
-    components: {jsonTable,switchToggle},
-    props: {'rows': Array, 'title': String},
+    components: {json2table,switcher},
+    props: {
+      'rows': Array, 
+      'title': String
+    },
     data(){
       return{
             displayToggle:false,

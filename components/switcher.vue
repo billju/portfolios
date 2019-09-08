@@ -1,13 +1,16 @@
 <template>
 <label class="switch">
-    <input type="checkbox" @change="$emit('input',$event.target.checked)"/>
+    <input type="checkbox" :value="value" @change="$emit('input',$event.target.checked)"/>
     <span class="slider"></span>
 </label>
 </template>
 
 <script>
 export default {
-    name: 'switch',
+    name: 'switcher',
+    props: {
+      value: Boolean,
+    }
 }
 </script>
 

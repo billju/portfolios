@@ -1,9 +1,9 @@
 <template>
   <div class="clockpicker" :style="{width: size+'px', height: size+'px'}">
     <div class="clock" @mousedown="mousedown=true" @mouseup="mousedown=false" @mouseleave="mousedown=false">
-      <div class="hour-niddle" :style="{transform:'rotate('+hour/hours.length*360+'deg)',boxShadow:'0 0 5px 2px '+color}"></div>
-      <div class="minute-niddle" :style="{transform:'rotate('+minute/minutes.length*360+'deg)',boxShadow:'0 0 5px 2px '+color}"></div>
-      <div class="center-dot" :style="{boxShadow:'0 0 5px 2px '+color}"></div>
+      <div class="hour-niddle" :style="{transform:'rotate('+hour/hours.length*360+'deg)',boxShadow:shadow}"></div>
+      <div class="minute-niddle" :style="{transform:'rotate('+minute/minutes.length*360+'deg)',boxShadow:shadow}"></div>
+      <div class="center-dot" :style="{boxShadow:shadow}"></div>
       <div class="number" v-for="h in hours" :key="'h'+h" :style="hourStyle(h)" @mouseover="handleMouseover('hour',hours.length-1,h)" @mousedown="hour=h">{{h}}</div>
       <div class="number" v-for="m in minutes" :key="'m'+m" :style="minuteStyle(m)" @mouseover="handleMouseover('minute',minutes.length-1,m)" @mousedown="minute=m">{{(m%5==0||minute==m)?m:''}}</div>
     </div>
@@ -22,6 +22,7 @@ data(){
       mousedown: false,
       swipeUp: true,
       color: '#00bcd4',
+      shadow: '0 0 5px 2px rgba(255,255,255,0.3)',
     }
   },
   methods:{
@@ -48,7 +49,7 @@ data(){
         top: center-r*Math.sin((num/den+1/4)*Math.PI*2)+'px',
         left: center-r*Math.cos((num/den+1/4)*Math.PI*2)+'px',
         color: this.hour==num?'white':'#333',
-        background: this.hour==num?'#00bcd4':'transparent'
+        background: this.hour==num?this.color:'transparent'
       }
     },
     minuteStyle(num){
@@ -57,7 +58,7 @@ data(){
         top: center-r*Math.sin((num/den+1/4)*Math.PI*2)+'px',
         left: center-r*Math.cos((num/den+1/4)*Math.PI*2)+'px',
         color: this.minute==num?'white':'black',
-        background: this.minute==num?'#00bcd4':'transparent'
+        background: this.minute==num?this.color:'transparent'
       }
     },
     two(value){return ('0'+value).substr(-2)},
@@ -72,7 +73,7 @@ data(){
 
 <style scoped>
 .clockpicker{
-  background: #00bcd4;
+  background: #b2ebf2;
   padding-top: 20px;
   padding-bottom: 20px;
   position: relative;

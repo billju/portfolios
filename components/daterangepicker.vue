@@ -2,7 +2,7 @@
 <div class="date-range-picker">
     <div class="arrow" @click="setLastMonth()">＜</div>
     <div class="d-flex flex-wrap justify-content-center">
-      <div>
+      <div class="my-2">
         <div class="text-center text-bold pa-2">{{months[prev.m-1]}} {{prev.y}}</div>
         <table>
           <tbody>
@@ -17,8 +17,7 @@
           </tbody>
         </table>
       </div>
-      <div class="pa-2"></div>
-      <div>
+      <div class='my-2'>
         <div class="text-center text-bold pa-2">{{months[next.m-1]}} {{next.y}}</div>
         <table>
           <tbody>
@@ -40,7 +39,20 @@
 
 <script>
 export default {
-props: {banned: Array, lb: Object, ub: Object},
+  props: {
+    banned: {
+      type: Array,
+      default: ()=> []
+    }, 
+    lb: {
+      type:Object,
+      default: undefined
+    },
+    ub: {
+      type:Object,
+      default: undefined
+    },
+  },
   data(){
     return {
       next: {},
@@ -142,7 +154,7 @@ props: {banned: Array, lb: Object, ub: Object},
       if(day!==undefined){
         let date = new Date(day.y,day.m-1,day.d),
             str = date.toLocaleDateString()
-        if((this.banned||[]).includes(str)||date<this.lb||date>this.ub){return 'banned'}
+        if(this.banned.includes(str)||date<this.lb||date>this.ub){return 'banned'}
         if(this.start<=date&&date<=this.end){
           if(this.start>=date&&date>=this.end
             ||(this.end<=date&&date.getDay()==0)
@@ -167,11 +179,12 @@ props: {banned: Array, lb: Object, ub: Object},
 }
 </script>
 
-<style>
+<style scoped>
 .date-range-picker{
   user-select: none;
   display: flex;
-  color: #38470B
+  color: #38470B;
+  font-family: sans-serif;
 }
 .d-flex{
   display: flex;
@@ -183,11 +196,15 @@ props: {banned: Array, lb: Object, ub: Object},
   justify-content: center;
 }
 .arrow{
-  font-weight: bold;
+  font-weight: 900;
   font-size: 32px;
   cursor: pointer;
   color: #38470B;
-  margin: 5px;
+  margin-top: 10px;
+}
+.my-2{
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .pa-2{
   padding: 10px;
@@ -229,6 +246,8 @@ td{
   border-radius: 15px 0 0 15px;
   background: #949C7C;
   color: #fff;
+  position: relative;
+  z-index:66;
 }
 .right-round{
   border-radius: 0 15px 15px 0;

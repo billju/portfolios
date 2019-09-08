@@ -30,7 +30,11 @@
 <script>
 export default {
     name: 'json-table',
-    props: {'rows':Array, 'toggle': Boolean, 'maxLen': [Number,String]},
+    props: {
+      'rows':Array,
+      'toggle': Boolean, 
+      'maxLen': [Number,String]
+    },
     data(){return{selected:[]}},
     methods: {
         flatParser(row, col){
@@ -93,7 +97,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 table {
   border-collapse: collapse;
 }
