@@ -32,13 +32,15 @@ export default {
     methods: {
         add(){
             if(this.type=='number'){
-                this.count = this.count>this.max?this.count:this.count+1
+                this.count = this.count>=this.max?this.count:this.count+1
+                this.$emit('input',this.count)
             }
             this.$emit('add')
         },
         minus(){
             if(this.type=='number'){
-                this.count = this.count<this.min?this.count:this.count-1
+                this.count = this.count<=this.min?this.count:this.count-1
+                this.$emit('input',this.count)
             }
             this.$emit('minus')
         }

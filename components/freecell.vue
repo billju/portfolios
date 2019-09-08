@@ -562,7 +562,6 @@ export default {
     user-select: none;
     position: relative;
     min-height: calc(100vh - 40px);
-    margin-top: 40px;
 }
 .d-flex {
   display: flex;

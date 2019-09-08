@@ -1,6 +1,6 @@
 <template>
 <div class="stepper-group" :style="{background:background}">
-    <div v-for="(step,si) in steps" :key="step" class="d-flex">
+    <div v-for="(step,si) in steps" :key="si" class="d-flex">
         <div v-if="si>0" class="hyphen" :class="bindClass(index>=si)"></div>
         <div class="stepper" :class="bindClass(index>=si)">
           <div class="stepper-round" :class="bindClass(index>=si)">STEP {{si+1}}.</div>
@@ -33,6 +33,7 @@ export default {
 .stepper-group {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   padding-top: 10px;
   padding-bottom: 10px;

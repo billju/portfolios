@@ -1,15 +1,16 @@
 <template>
-  <div ref="container" class="container">
+<div ref="container" class="bg-dark">
     <!-- <freecell :steps="['送出訂單','付款方式','完成訂單']" :index="0" background="#00bcd4"/> -->
     <waveform :audioContext="ctx" :input="this.biquadFilter"/>
     <spectrum :audioContext="ctx" :input="this.biquadFilter"/>
-    <osc ref="osc" :adsr="{a:0,d:1,s:0.5,r:0.5}" :audioContext="ctx" :detune="detune" :volume="0.2" :output="this.masterGain"/>
+    <osc ref="osc" :adsr="{a:0,d:1,s:0.5,r:0.5}" :audioContext="ctx" :detune="detune" :output="this.masterGain"/>
     <pianokey @oscStart="oscStart" @oscStop="oscStop"/>
     <knob label="detune" :container="container" :min="-100" :max="100" v-model="detune" @input="oscMod()"/>
     <knob label="volume" :container="container" :min="0" :max="1" @input="masterGain.gain.value=$event"/>
     <knob label="filter" :container="container" :min="5" :max="14" v-model="pow" @input="biquadFilter.frequency.value=Math.pow(2,$event)"/>
     <div ref="map" id="map"></div>
-  </div>
+    <navbar/>
+</div>
 </template>
 
 <script>
@@ -19,10 +20,11 @@ import waveform from '~/components/synth.waveform.vue'
 import spectrum from '~/components/synth.spectrum.vue'
 import knob from '~/components/synth.knob.vue'
 import {EzMap,TileLayer} from '~/plugins/ezmap.js'
+import navbar from '~/components/navbar.vue'
 
 export default {
   components: {
-     waveform,spectrum,osc,pianokey,knob
+     waveform,spectrum,osc,pianokey,knob,navbar
   },
   data(){
     return{
@@ -59,19 +61,19 @@ export default {
 *{
   font-family: 微軟正黑體;
 }
+body{
+  margin: 0;
+  padding: 0;
+}
+</style>
+
+<style scoped>
 #map{
   width: 100%;
   height: 100vh;
 }
-body{
-  margin: 0;
-  padding: 0;
+.bg-dark{
+  padding-top: 50px;
   background: #222;
 }
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  padding: 0;
-}
-
 </style>

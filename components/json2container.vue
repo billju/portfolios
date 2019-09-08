@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 100%">
     <div class="input-group">
       <div class="input-group-text">{{title}}</div>
       <div class="input-group-text">
@@ -10,7 +10,9 @@
         <div class="close"></div>
       </div>
     </div>
-    <json2table :rows="rows" :toggle="displayToggle" :maxLen="maxLength" @emit-event="makeTable"/>
+    <div class="overflow-x">
+      <json2table :rows="rows" :toggle="displayToggle" @create-table="$emit('create-table',$event)"/>
+    </div>
   </div>
 </template>
 
@@ -21,7 +23,7 @@ export default {
     name: 'json-table-container',
     components: {json2table,switcher},
     props: {
-      'rows': Array, 
+      'rows': [Array,Object], 
       'title': String
     },
     data(){
@@ -30,11 +32,6 @@ export default {
             maxLength: 10,
         }
     },
-    methods: {
-        makeTable(payload){
-          this.$emit('emit-event',payload) //再傳上去
-        }
-    }
 }
 </script>
 
@@ -96,7 +93,10 @@ input[type="text"] {
 .close::after{
     transform: rotate(-45deg);
 }
-
+.overflow-x{
+  width: 100%;
+  overflow-x: scroll;
+}
 .form-control {
   flex: 1 1 auto;
   outline: 0;

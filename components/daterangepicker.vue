@@ -45,11 +45,11 @@ export default {
       default: ()=> []
     }, 
     lb: {
-      type:Object,
+      type: Date,
       default: undefined
     },
     ub: {
-      type:Object,
+      type: Date,
       default: undefined
     },
   },
@@ -246,11 +246,11 @@ td{
   border-radius: 15px 0 0 15px;
   background: #949C7C;
   color: #fff;
-  position: relative;
-  z-index:66;
+  cursor: pointer;
 }
 .right-round{
   border-radius: 0 15px 15px 0;
+  cursor: pointer;
 }
 .active{
   background: #949C7C;

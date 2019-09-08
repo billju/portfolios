@@ -1,5 +1,5 @@
 <template>
-<div class="d-flex" id="greenband">
+<div class="d-flex" id="greenband" @input="handleInput()">
   <div class="settings">
     <div class="input_box">
       <label class="bold">週期{{cycle | norm_3digit}}秒</label>
@@ -162,6 +162,10 @@ export default {
       this.$refs.canvas.width = 450*this.reso
       this.$refs.canvas.height = 450*this.reso
       this.calculate_green_band()
+    },
+    handleInput(){
+        this.ctx.clearRect(0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
+        this.calculate_green_band();
     }
   },
   computed:{
@@ -189,19 +193,14 @@ export default {
     this.$refs.canvas.width = 450*this.reso
     this.$refs.canvas.height = 450*this.reso
     this.calculate_green_band();
-    addEventListener("input", ()=>{
-      this.ctx.clearRect(0, 0, this.$refs.canvas.width, this.$refs.canvas.height);
-      this.calculate_green_band();
-    });
   }
 }
 </script>
 
-<style>
-body {
-  margin: 0;
-  height: 100%;
-  background: #00ffbf;
+<style scoped>
+#greenband {
+  margin: 0 auto;
+  max-width: 900px;
   font-family: "微軟正黑體";
   color: white;
   display: flex;
@@ -211,12 +210,12 @@ body {
 
 .d-flex {
   display: flex;
-  background-color: #009973;
+  background: #009973;
 }
 
 .settings {
   border: solid 5px #00664d;
-  width: 100%;
+  min-height: 450px;
   max-width: 450px;
   display: flex;
   flex-wrap: wrap;
@@ -295,16 +294,23 @@ input[type="range"] {
   background: none;
 }
 
-input[type="range"]::-webkit-slider-thumb {
+::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 15px;
   height: 20px;
   background: #fff;
 }
 
-input[type='range']::-webkit-slider-runnable-track {
+::-webkit-slider-runnable-track {
   -webkit-appearance: none;
-  background-color: #00664d;
+  background: #00664d;
+}
+
+::-moz-range-track{
+  background: #00664d;
+}
+::-ms-track{
+  background: #00664d;
 }
 
 @media (max-width: 900px) {

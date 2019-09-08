@@ -5,7 +5,7 @@
         <div class="text-center w-100p" :key="showDate">{{showDate}}</div>
       </transition>
     </div>
-    <div class="d-flex flex-wrap w-100p overflow-y-scroll" v-if="!year">
+    <div class="d-flex flex-wrap w-100p overflow-y-scroll" v-if="!year" ref="year">
       <div class="w-33p text-center py-2" v-for="y in years" :key="y" @click="year=y;month=null">{{y}}</div>
     </div>
     <div class="d-flex flex-wrap w-100p" v-else-if="!month">
@@ -13,7 +13,7 @@
     </div>
     <div class="d-flex justify-content-between align-items-center mt-1 mx-1" v-else>
       <div class="btn" @click="setCalendar(last.y,last.m);swipe_left=false">＜</div>
-      <div class="date-btn" @click="year=null">
+      <div class="date-btn" @click="year=null;">
         <transition :name="swipe_left?'swipe-left':'swipe-right'">
           <div class="btn" :key="month">{{months[month-1]}} {{year}}</div>
         </transition>
@@ -43,7 +43,17 @@
 
 <script>
 export default {
-   name: 'datepicker',
+    name: 'datepicker',
+    props: {
+        months: {
+            type: Array,
+            default: ()=>['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+        },
+        weekdays: {
+            type: Array,
+            default: ()=>['日','一','二','三','四','五','六']
+        }
+    },
     data(){
         return {
             year: 2019, month: 7,
@@ -51,8 +61,8 @@ export default {
             next: {y:2019,m:6}, last:{y:2019,m:4},
             weeks: [[{y:2019,m:4,d:28},{y:2019,m:4,d:29}]],
             years: [2018,2019],
-            months: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-            weekdays: ['日','一','二','三','四','五','六'],
+            // months: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            // weekdays: ['日','一','二','三','四','五','六'],
             swipe_left: false,
         }
     },
@@ -101,6 +111,11 @@ export default {
     computed:{
         showDate(){
             return this.date.y+'年'+this.date.m+'月'+this.date.d+'日 星期'+this.weekdays[this.date.weekday]
+        }
+    },
+    updated(){
+        if(this.$refs.year){
+            this.$refs.year.scrollTop=900
         }
     },
     mounted(){

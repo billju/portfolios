@@ -24,9 +24,11 @@
   </div>
   <div class="game-screen" @click="spinBlock(true)">
     <table :style="menu?'filter: blur(5px)':''">
-      <tr v-for="(row, ri) in coord" :key="ri">
-        <td v-for="(col, ci) in row" :key="ci" :style="tdStyle(ri,ci,col)"></td>
-      </tr>
+      <tbody>
+        <tr v-for="(row, ri) in coord" :key="ri">
+          <td v-for="(col, ci) in row" :key="ci" :style="tdStyle(ri,ci,col)"></td>
+        </tr>
+      </tbody>
     </table>
     <transition name="float-up">
       <div class="combo text-center" v-if="dashboard.acc_combo&gt;0" :key="dashboard.acc_combo" :style="{color: colors[dropB.idx+1]}">
@@ -53,14 +55,16 @@
   <transition name="slide-up">
     <div class="hint" v-if="hint">
       <h3>Tap on Screen or Press on Key</h3>
-      <h5>1. Move Left(click left-hand side or arrow key)</h5>
-      <h5>2. Move Right(click right-hand side or arrow key)</h5>
-      <h5>3. Move Down(arrow key)</h5>
-      <h5>4. Spin Clockwise(click center screen, up arrow or X key)</h5>
-      <h5>5. Spin Anti-Clockwise(press Z key)</h5>
-      <h5>6. Drop to Bottom(click blank side below or SPACE key)</h5>
-      <h5>7. Hold Block(click left top gird or SHIFT key)</h5>
-      <div class="btn-dark" @click="hint=false">OK</div>
+      <ol>
+        <li>向左移動(點選螢幕左方或左方向鍵)</li>
+        <li>向右移動(點選螢幕右方或右方向鍵)</li>
+        <li>向下移動(下方向鍵)</li>
+        <li>順時針旋轉(點選螢幕中央、上方向鍵、X鍵)</li>
+        <li>逆時針旋轉(Z鍵)</li>
+        <li>SPACE!(點選螢幕下方或空白鍵)</li>
+        <li>HOLD!(點選左上方格或SHIFT鍵)</li>
+      </ol>
+      <div class="btn btn-dark" @click="hint=false">OK</div>
     </div>
   </transition>
 </div>
@@ -441,7 +445,9 @@ td {
   width: 30px;
   height: 30px;
 }
-
+ol{
+  margin-top: 20px;
+}
 .d-flex {
   display: flex;
 }
@@ -562,6 +568,7 @@ td {
 
 .btn {
   color: #fff;
+  text-align: center;
   padding: 20px;
   border-radius: 10px;
   cursor: pointer;

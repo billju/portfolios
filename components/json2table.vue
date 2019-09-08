@@ -1,28 +1,32 @@
 <template>
 <div class="table-container">
     <table class="table table-bordered table-hover" v-if="toggle">
-      <tr>
-        <td v-for="(col,ci) in column.cols" :key="ci" :rowspan="col.rowspan" :colspan="col.colspan" 
-          @click="toggleColumn(col.name)" :class="selected.includes(col.name)?'active':''"> 
-          <div>{{col.name}}</div><small>({{col.type}})</small>
-        </td>
-      </tr>
-      <tr>
-        <td v-for="(subcol,ci) in column.subcols" :key="ci">{{subcol.sub}}</td>
-      </tr>
-      <tr v-for="(row,ri) in rows.slice(0,maxLen)" :key="ri">
-        <td v-for="(col,ci) in column.flatcols" :key="ci" @click="$emit('emit-event',{row,col})">{{flatParser(row,col) | overflowClip}}</td>
-      </tr>
+      <tbody>
+        <tr>
+          <th v-for="(col,ci) in column.cols" :key="ci" :rowspan="col.rowspan" :colspan="col.colspan" 
+            @click="toggleColumn(col.name)" :class="selected.includes(col.name)?'active':''"> 
+            <div>{{col.name}}</div><small>({{col.type}})</small>
+          </th>
+        </tr>
+        <tr>
+          <th v-for="(subcol,ci) in column.subcols" :key="ci">{{subcol.sub}}</th>
+        </tr>
+        <tr v-for="(row,ri) in rows" :key="ri">
+          <td v-for="(col,ci) in column.flatcols" :key="ci" @click="$emit('create-table',{name:col.name,type:col.type,data:row[col.name]})">{{flatParser(row,col) | overflowClip}}</td>
+        </tr>
+      </tbody>
     </table>
     <table class="table table-bordered table-hover" v-else>
-      <tr v-for="(col,ci) in column.flatcols" :key="ci">
-        <td v-if="col.rowspan" :rowspan="col.rowspan" :colspan="col.sub!=undefined?1:2"
-          @click="toggleColumn(col.name)" :class="selected.includes(col.name)?'active':''">
-          <div>{{col.name}}</div><small>({{col.type}})</small>
-        </td>
-        <td v-if="col.sub!=undefined">{{col.sub}}</td>
-        <td v-for="(row,ri) in rows.slice(0,maxLen)" :key="ri" @click="$emit('emit-event',{row,col})">{{flatParser(row,col) | overflowClip}}</td>
-      </tr>
+      <tbody>
+        <tr v-for="(col,ci) in column.flatcols" :key="ci">
+          <th v-if="col.rowspan" :rowspan="col.rowspan" :colspan="col.sub!=undefined?1:2"
+            @click="toggleColumn(col.name)" :class="selected.includes(col.name)?'active':''">
+            <div>{{col.name}}</div><small>({{col.type}})</small>
+          </th>
+          <th v-if="col.sub!=undefined">{{col.sub}}</th>
+          <td v-for="(row,ri) in rows" :key="ri" @click="$emit('create-table',{name:col.name,type:col.type,data:row[col.name]})">{{flatParser(row,col) | overflowClip}}</td>
+        </tr>
+    </tbody>
     </table>
 </div>
 </template>
@@ -31,9 +35,8 @@
 export default {
     name: 'json-table',
     props: {
-      'rows':Array,
+      'rows': [Array,Object],
       'toggle': Boolean, 
-      'maxLen': [Number,String]
     },
     data(){return{selected:[]}},
     methods: {
@@ -90,8 +93,8 @@ export default {
     },
     filters:{
         overflowClip(obj){
-        let str = JSON.stringify(obj)
-        return str?str.length>200?str.substr(0,200)+'...':str:''
+          let str = JSON.stringify(obj)
+          return str?str.length>200?str.substr(0,200)+'...':str:''
         }
     },
 }
@@ -106,10 +109,13 @@ tr:hover {
   color: #212529;
   background-color: rgba(0, 0, 0, 0.075);
 }
+th{
+  cursor: pointer;
+}
 
-td {
+th, td {
   border: 1px solid #dee2e6;
-  font-size: 8px;
+  font-size: 0.8em;
   padding: 2px 5px;
 }
 

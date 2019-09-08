@@ -7,10 +7,10 @@
         <div></div>
       </div>
       <ul class="navbar-menu">
-        <li><a href="#">專案</a></li>
-        <li><a href="#">手刻組件</a></li>
-        <li><a href="#">經典遊戲</a></li>
-        <li><a href="#">關於</a></li>
+        <nuxt-link to="/projects"><li>專案</li></nuxt-link>
+        <nuxt-link to="/handmade"><li>手刻組件</li></nuxt-link>
+        <nuxt-link to="/games"><li>經典遊戲</li></nuxt-link>
+        <nuxt-link to="/"><li>關於</li></nuxt-link>
       </ul>
     </div>
 </nav>
@@ -112,18 +112,18 @@ export default {
   margin: 0;
   padding: 0 20px;
 }
-.navbar-menu > li {
+li {
   height: 50px;
   list-style-type: none;
-}
-.navbar-menu > li > a {
-  height: 100%;
   padding: 0 20px;
+}
+a {
+  height: 100%;
   line-height: 50px;
   text-decoration: none;
   color: #fff;
 }
-.navbar-menu > li:hover {
+li:hover {
   box-shadow: 0 -5px 0 0 #fff inset;
 }
 @media screen and (max-width: 760px) {
@@ -142,6 +142,7 @@ export default {
     overflow: hidden;
     transition: 0.5s ease-out;
     max-height: 0;
+    padding: 0;
     background: rgba(0, 0, 0, 0.5);
   }
 
@@ -149,8 +150,7 @@ export default {
     transition: 0.5s ease-in;
     max-height: 300px;
   }
-  
-  .navbar-menu > li:hover {
+  li:hover {
     box-shadow: none;
     background: rgba(0,0,0,0.5);
   }

@@ -1,4 +1,9 @@
 
+const features = [
+  'fetch',
+  'Object.entries',
+  'IntersectionObserver'
+].join('%2C')
 export default {
   mode: 'universal',
   /*
@@ -13,6 +18,9 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      { src: `https://polyfill.io/v3/polyfill.min.js?features=${features}`, body: true }
     ]
   },
   /*

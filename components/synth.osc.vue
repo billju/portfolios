@@ -36,14 +36,13 @@ export default {
     name: 'osc',
     props: {
       'audioContext':{},
-      'volume':{type:Number,default:0.2},
       'detune':{type:Number,default:0},
       'adsr':{type:Object},
       'output': {}
     },
     data(){
       return{
-        type:'sine', markerStyle: {}, osc: {}, gainNode: {}, oscGain: null,
+        type:'sine', markerStyle: {}, osc: {}, gainNode: {},
       }
     },
     methods: {
@@ -80,12 +79,7 @@ export default {
                 this.osc[freq].detune.value = this.detune
             }
             // connect audio context nodes
-            if(!this.oscGain){
-                this.oscGain = this.audioContext.createGain()
-            }
-            this.oscGain.gain.value = this.volume
-            osc[freq].connect(this.oscGain)
-            this.oscGain.connect(this.gainNode[freq])
+            osc[freq].connect(this.gainNode[freq])
             osc[freq].start(now)
             let outputNode = this.output==undefined?this.audioContext.destination:this.output
             this.gainNode[freq].connect(outputNode)
@@ -118,7 +112,6 @@ export default {
             for(let freq in this.osc){
                 this.osc[freq].detune.value = this.detune
             }
-            this.oscGain.gain.value = this.volume
         }
     },
     mounted(){

@@ -39,6 +39,9 @@ export default {
         this.dataArray = new Uint8Array(this.bufferLength)
         this.input.connect(this.analyser)
         this.drawLine()
+    },
+    beforeDestroy(){
+        cancelAnimationFrame(this.animationFrame)
     }
 }
 </script>
