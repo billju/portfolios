@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="overflow-x">
-      <json2table :rows="rows" :toggle="displayToggle" @create-table="$emit('create-table',$event)"/>
+      <json2table :rows="slicedRows" :toggle="displayToggle" @create-table="$emit('create-table',$event)"/>
     </div>
   </div>
 </template>
@@ -32,6 +32,11 @@ export default {
             maxLength: 10,
         }
     },
+    computed:{
+      slicedRows(){
+        return Array.isArray(this.rows)?this.rows.slice(0,this.maxLength):this.rows
+      }
+    }
 }
 </script>
 

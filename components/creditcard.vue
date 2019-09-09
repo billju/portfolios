@@ -121,6 +121,7 @@ export default {
     line-height: 30px;
     padding-left: 5px;
     width: 80px;
+    font-size: 1.1em;
 }
 .input-text{
     width: calc(100% - 50px);

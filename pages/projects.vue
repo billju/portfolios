@@ -16,6 +16,14 @@ import carousel from '~/components/carousel.vue'
 import navbar from '~/components/navbar.vue'
 export default {
     components: {carousel,navbar},
+    head(){
+        return {
+            title: 'chuboy',
+            meta: [
+                {hid:'description', name:'description', content:'My awesome portfolios'}
+            ]
+        }
+    },
     data(){
         return {
             pages: [

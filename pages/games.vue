@@ -16,6 +16,14 @@ import greenband from '~/components/greenband.vue'
 import navbar from '~/components/navbar.vue'
 export default {
     components: {agario,tetris,freecell,greenband,navbar},
+    head(){
+        return {
+            title: 'chuboy',
+            meta: [
+                {hid:'description', name:'description', content:'My awesome portfolios'}
+            ]
+        }
+    },
 }
 </script>
 

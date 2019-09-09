@@ -93,7 +93,7 @@
             <datepicker v-model="date"/>
         </div>
     </div></div>
-    <div class="light"><div class="row">
+    <div class="light-grey"><div class="row">
         <div class="col-sm-6">
             <h1>clock-picker</h1>
             <p>24小時制的時間選擇工具</p>
@@ -138,9 +138,9 @@
         </div>
     </div></div>
 
-    <div class="light"><div class="row">
+    <div class="light-grey"><div class="row">
         <div class="col-sm-12">
-            <stepper :steps="stp.steps" :index="stp.index*1"/>
+            <stepper :steps="stp.steps" :index="stp.index*1" :background="color.primary"/>
         </div>
         <div class="col-sm-4 col-md-12">
             <h1>stepper</h1>
@@ -149,12 +149,12 @@
                 <tr><th>bind</th><th>type</th><th>demo</th></tr>
                 <tr><td>steps</td><td>Array</td><td>
                     <ul><li v-for="(step,si) in stp.steps" :key="si">{{step}}</li></ul>
-                    <counter type="text" v-model="stp.input" @add="stp.steps.push(stp.input)" @minus="stp.steps.pop()"/>
+                    <counter type="text" v-model="stp.input" @add="stp.steps.push(stp.input)" @minus="stp.steps.pop()" :background="color.light"/>
                 </td></tr>
                 <tr><td>index</td><td>Number</td><td>
-                    <counter type="number" v-model="stp.index" :min="0" :max="stp.steps.length-1"/>
+                    <counter type="number" v-model="stp.index" :min="0" :max="stp.steps.length-1" :background="color.light"/>
                 </td></tr>
-                <tr><td>background</td><td>String</td><td></td></tr>
+                <tr><td>background</td><td>String</td><td><colorpicker v-model="color"/></td></tr>
             </tbody></table>
         </div>
         <div class="col-sm-4 col-md-6">
@@ -189,7 +189,7 @@
             </tbody></table>
 
             <h1>json2table</h1>
-            <p>將json轉成表格方便閱覽，並且可以標註特定欄位</p>
+            <p>將json轉成表格方便閱覽，點擊欄位名稱可以反白標註</p>
             <table><tbody>
                 <tr><th>bind</th><th>type</th><th>說明</th></tr>
                 <tr><td>rows</td><td>Array</td><td>輸入資料</td></tr>
@@ -224,6 +224,7 @@ import daterangepicker from '~/components/daterangepicker.vue'
 import stepper from '~/components/stepper.vue'
 import creditcard from '~/components/creditcard.vue'
 import counter from '~/components/counter.vue'
+import colorpicker from '~/components/colorpicker.vue'
 
 import switcher from '~/components/switcher.vue'
 import progressbar from '~/components/progressbar.vue'
@@ -240,10 +241,18 @@ import navbar from '~/components/navbar.vue'
 export default {
     components: {
         datepicker,clockpicker,dialpicker,daterangepicker,
-        stepper,creditcard,counter,
+        stepper,creditcard,counter,colorpicker,
         switcher,progressbar,json2container,
         waveform,spectrum,osc,pianokey,knob,
         navbar,
+    },
+    head(){
+        return {
+            title: 'chuboy',
+            meta: [
+                {hid:'description', name:'description', content:'My awesome portfolios'}
+            ]
+        }
     },
     data(){
         return{
@@ -251,7 +260,7 @@ export default {
             rangeBind: {banned:['2019/9/29'],lb:new Date(),ub:new Date()},
             daterange: {start:'',end:'',select:[]}, 
             stp: {steps: ['購物車','付款方式','完成訂單'],index: 0,background: 'cyan',input:''},
-            creditCard: {},
+            creditCard: {}, color: {text:'cyan',primary:'#00bcd4',light:'#b2ebf2',dark:'#006064'},
             onProgress: false, url: 'https://ptx.transportdata.tw/MOTC/v2/Bus/Schedule/InterCity?$top=5&$format=JSON',
             tables: {},
             ctx: {}, masterGain:{}, volume:0.05, biquadFilter:{}, pow: 14,
@@ -321,6 +330,7 @@ export default {
         this.rangeBind.lb.setTime(ms-24*60*60*1000)
         this.rangeBind.ub.setTime(ms+60*24*60*60*1000)
         this.container = this.$refs.container
+        this.getPtx()
     }
 }
 </script>
@@ -333,16 +343,21 @@ export default {
 .pt-50{
     padding-top: 50px;
 }
-.grey{
+/* color */
+.light{
+    
+}
+.light-grey{
     background: #f5f5f5;
 }
-.light h1{
-    box-shadow: 0 -10px 0 0 #00bcd4 inset
+.light h1, .light-grey h1{
+    box-shadow: 0 -10px 0 0 #b2ebf2 inset
 }
 .dark{
     background: #222;
     color: #fff;
 }
+/* native */
 p{
     white-space: pre;
     margin: 10px;
@@ -351,6 +366,7 @@ textarea{
     padding: 5px;
     min-width: 400px;
 }
+/* table */
 table{
     border-collapse: collapse;
     margin-top: 10px;
@@ -362,8 +378,16 @@ tr:hover {
 .dark tr:hover {
   background: rgba(255, 255, 255, 0.2);
 }
-th, td{
-    border: 1px solid #000;
+th{
+    border-top: 2px solid #999;
+    border-bottom: 2px solid #999;
+    text-align: center;
+    padding: 5px 10px;
+}
+td{
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
     padding: 5px 10px;
 }
 .dark th, .dark td{
@@ -377,6 +401,7 @@ td.flex-center{
 td.pa-0{
     padding: 0;
 }
+/* button */
 .btn{
     padding: 5px 10px;
     display: inline-block;
@@ -396,9 +421,7 @@ td.pa-0{
     max-width: 100%;
     overflow-x: scroll;
 }
-.bd-bottom{
-    border-bottom: 1px solid #000;
-}
+/* flex */
 .row{
     width: 100%;
     max-width: 1280px;
@@ -408,7 +431,7 @@ td.pa-0{
     flex-wrap: wrap;
     padding-top: 30px;
     padding-bottom: 30px;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #aaa;
 }
 .col-sm-4, .col-sm-6, .col-sm-8, .col-sm-12{
     padding-top: 10px;

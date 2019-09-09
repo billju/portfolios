@@ -1,7 +1,7 @@
 <template>
-<div class="d-flex">
+<div class="d-flex" :style="{background}">
     <div class="btn btn-outline" @click="minus()">-</div>
-    <input :type="type" :min="min" :max="max" :value="value" @input="$emit('input',$event.target.value)">
+    <input :type="type" :min="min" :max="max" :value="value" @input="$emit('input',$event.target.value)" @keyup.enter="add()">
     <div class="btn btn-outline" @click="add()">+</div>
 </div>
 </template>
@@ -22,7 +22,11 @@ export default {
             type: Number,
             default: 9999
         },
-        value: {}
+        value: {},
+        background: {
+            type: String,
+            default: '#ffffff'
+        }
     },
     data(){
         return {

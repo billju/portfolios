@@ -265,7 +265,8 @@ class EzMap{
         return anchor.mulPoint(this.scale).toRound()
     }
     getPointOfMap(x,y){
-        let point = new Point(x,y).divPoint(this.scale)
+        let rect = this.container.getBoundingClientRect(),
+            point = new Point(x-rect.x,y-rect.y).divPoint(this.scale)
         return new Point(point.x+this.Bounds.min.x,this.Bounds.max.y-point.y)
     }
     setCenter(latlng){

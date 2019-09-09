@@ -51,12 +51,14 @@ export default {
     },
     methods:{
         handleEventStart(pk){
-            this.$emit('oscStart',440*Math.pow(2,pk.pitch/12))
+            let freq = 440*Math.pow(2,pk.pitch/12)
+            this.$emit('oscStart',freq.toFixed(2)*1)
             pk.press=true
         },
         handleEventEnd(pk){
             if(pk.press){
-                this.$emit('oscStop',440*Math.pow(2,pk.pitch/12))
+                let freq = 440*Math.pow(2,pk.pitch/12)
+                this.$emit('oscStop',freq.toFixed(2)*1)
                 pk.press=false
             }
         }
@@ -74,7 +76,7 @@ export default {
                 if(!this.pianoKeys[idx].press){
                     let freq = 440*Math.pow(2,this.pianoKeys[idx].pitch/12)
                     this.pianoKeys[idx].press = true
-                    this.$emit('oscStart',freq)
+                    this.$emit('oscStart',freq.toFixed(2)*1)
                 }
             }
         });
@@ -84,7 +86,7 @@ export default {
             if(idx!==-1){
                 let freq = 440*Math.pow(2,this.pianoKeys[idx].pitch/12)
                 this.pianoKeys[idx].press = false
-                this.$emit('oscStop',freq)
+                this.$emit('oscStop',freq.toFixed(2)*1)
             }
         });
     }

@@ -16,7 +16,10 @@ export default {
     props: {
       steps:Array,
       index:Number,
-      background:{type:String,default:'#00bcd4'}
+      background:{
+        type:String,
+        default:'#00bcd4'
+      }
     },
     methods: {
         bindClass(bool){
