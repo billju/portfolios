@@ -242,12 +242,12 @@ a.card{
   box-shadow: 0 1px 3px 0 #aaa;
 }
 @media screen and (max-width:760px) {
-  .card{
+  a.card{
     width: 40%;
   }
 }
-@media screen and (max-width:760px) {
-  .card{
+@media screen and (max-width:600px) {
+  a.card{
     width: 90%;
   }
 }
