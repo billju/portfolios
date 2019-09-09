@@ -26,7 +26,7 @@ export default {
     },
     data(){
         return{
-            val:0.5, clientX:0, clientY: 0, active: false, bindedContainer: null,
+            val:0.5, clientX:0, clientY: 0, active: false, bindedContainer: {},
         }
     },
     methods: {
@@ -35,10 +35,10 @@ export default {
             this.clientX = e.clientX==undefined?e.targetTouches[0].pageX:e.clientX
             this.clientY = e.clientY==undefined?e.targetTouches[0].pageY:e.clientY
             if(this.bindedContainer!=this.container){
-                this.container = this.container?this.container:this.$refs.knob
-                this.container.addEventListener('mousemove',this.handleEventMove)
-                this.container.addEventListener('mouseup',this.handleEventEnd)
-                this.container.addEventListener('mouseleave',this.handleEventEnd)
+                this.bindedcontainer = this.container?this.container:this.$refs.knob
+                this.bindedcontainer.addEventListener('mousemove',this.handleEventMove)
+                this.bindedcontainer.addEventListener('mouseup',this.handleEventEnd)
+                this.bindedcontainer.addEventListener('mouseleave',this.handleEventEnd)
                 this.bindedContainer=this.container
             }
         },
@@ -52,12 +52,12 @@ export default {
                     movedX = clientX-this.clientX,
                     movedY = clientY-this.clientY
                 this.val+= (movedX-movedY)*(max-min)*0.005
-                this.val = Math.round(this.val/this.step)*this.step
-                this.val = this.val.toFixed(12)*1 //deal with float flush
                 this.val = (this.val>max)?max:(this.val<min)?min:this.val
                 // knob.dash = Math.round(184-reg*184)
                 // knob.deg = Math.round(-132+reg*264)
-                this.$emit('input',this.val)
+                let emitValue = Math.round(this.val/this.step)*this.step
+                emitValue =  emitValue.toFixed(12)*1//deal with float flush
+                this.$emit('input',emitValue)
                 this.clientX = clientX;
                 this.clientY = clientY;
             }
@@ -115,7 +115,6 @@ export default {
   top: 90%;
   width: 100%;
   text-align: center;
-  text-transform: uppercase;
 }
 
 svg path {

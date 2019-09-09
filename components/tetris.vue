@@ -1,9 +1,9 @@
 <template>
 <div class="container d-grid">
   <div class="dashboard"></div>
-  <div class="hold-block" @click="move('left')">
+  <div class="hold-block" @click.prevent="move('left');$event.preventED">
     <div>
-      <div class="block" @click="holdBlock()">
+      <div class="block" @click.prevent="holdBlock()">
         <div v-for="(ns,ni) in nextBlockStyle(holdB)" :key="ni" :style="ns"></div>
       </div>
       <div class="title"></div>
@@ -22,7 +22,7 @@
       </div>
     </div>
   </div>
-  <div class="game-screen" @click="spinBlock(true)">
+  <div class="game-screen" @click.prevent="spinBlock(true)">
     <table :style="menu?'filter: blur(5px)':''">
       <tbody>
         <tr v-for="(row, ri) in coord" :key="ri">
@@ -44,14 +44,14 @@
       <h1 class="btn btn-info" @click="hint=true">HINT</h1>
     </div>
   </div>
-  <div class="next-block" @click="move('right')">
+  <div class="next-block" @click.prevent="move('right')">
     <div class="bg-dark">
       <div class="block block-bdr ma-1" v-for="(nb,nbi) in nextB" :key="nbi">
         <div v-for="(ns,nsi) in nextBlockStyle(nb)" :key="nsi" :style="ns"></div>
       </div>
     </div>
   </div>
-  <div class="down-area" @click="spaceDown()"></div>
+  <div class="down-area" @click.prevent="spaceDown()"></div>
   <transition name="slide-up">
     <div class="hint" v-if="hint">
       <h3>Tap on Screen or Press on Key</h3>
@@ -273,6 +273,7 @@ export default {
                     this.showBlock()
                 if(this.dashboard.KO>2){
                     clearTimeout(this.timeout)
+                    this.dashboard.resTime = 0
                     this.menu = true
                 }
                 }else{

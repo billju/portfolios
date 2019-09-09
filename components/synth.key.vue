@@ -1,5 +1,5 @@
 <template>
-<div class="psr">
+<div class="psr" :style="{minWidth}">
     <div class="d-inline-block" v-for="(pk,pi) in pianoKeys" :key="pi" 
         :class="pk.black?'black-key':'white-key'" :style="{color:pk.press?'white':'#666'}" 
         @mousedown="handleEventStart(pk)" @mouseup="handleEventEnd(pk)" @mouseleave="handleEventEnd(pk)">
@@ -10,9 +10,10 @@
 
 <script>
 export default {
-    data(){
-        return{
-            pianoKeys: [
+    props: {
+        pianoKeys: {
+            type: Array,
+            default: () => ([
                 {char: 'Z', pitch: -9, black:false, press:false},
                 {char: 'S', pitch: -8, black:true, press:false},
                 {char: 'X', pitch: -7, black:false, press:false},
@@ -45,7 +46,7 @@ export default {
                 {char: '[', pitch: 20, black:false, press:false},
                 {char: '=', pitch: 21, black:true, press:false},
                 {char: ']', pitch: 22, black:false, press:false},
-            ],
+            ]),
         }
     },
     methods:{
@@ -54,8 +55,15 @@ export default {
             pk.press=true
         },
         handleEventEnd(pk){
-            this.$emit('oscStop',440*Math.pow(2,pk.pitch/12))
-            pk.press=false
+            if(pk.press){
+                this.$emit('oscStop',440*Math.pow(2,pk.pitch/12))
+                pk.press=false
+            }
+        }
+    },
+    computed: {
+        minWidth(){
+            return this.pianoKeys.filter(k=>!k.black).length*30+'px'
         }
     },
     mounted(){

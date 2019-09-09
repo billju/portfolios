@@ -54,7 +54,10 @@ export default {
 }
 input{
     text-align: center;
-    border: 1px solid #aaa;
+    border: 1px solid rgba(0,0,0,0.3);
+}
+input[type="text"]{
+    width: 80px;
 }
 .btn{
     padding: 2px 5px;

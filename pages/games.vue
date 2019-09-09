@@ -1,6 +1,6 @@
 <template>
 <div class="bg-dark">
-    <freecell ref="freecell"/>
+    <freecell/>
     <agario/>
     <greenband/>
     <tetris/>
@@ -16,9 +16,6 @@ import greenband from '~/components/greenband.vue'
 import navbar from '~/components/navbar.vue'
 export default {
     components: {agario,tetris,freecell,greenband,navbar},
-    mounted(){
-        this.$refs.freecell.initPosition()
-    }
 }
 </script>
 
@@ -26,5 +23,6 @@ export default {
 .bg-dark{
     padding-top: 50px;
     background: #222;
+    overflow-x: hidden;
 }
 </style>

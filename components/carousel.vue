@@ -1,5 +1,5 @@
 <template>
-<div @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
+<div class="carousel" @touchstart="handleTouchStart" @touchmove="handleTouchMove" @touchend="handleTouchEnd">
   <div class="psf-background">
     <transition :name="slideUp?'slide-up':'slide-down'">
       <div class="psa-background" :key="pageIndex" :style="bgStyle(pages[pageIndex].bg)"></div>
@@ -7,7 +7,7 @@
   </div>
   <div class="psf-center">
     <transition-group name="slide-left">
-      <img class="img" :src="pages[pageIndex].img" :key="pageIndex"/>
+      <img class="img" :src="pages[pageIndex].img" :key="pageIndex" @click="gotoPage(pages[pageIndex].href)"/>
       <div class="jumbo-text" :key="pages[pageIndex].title" style="animation-delay: -0.5s;">{{pages[pageIndex].title}}</div>
       <div class="p-text" :key="pages[pageIndex].text" style="animation-delay: -0.3s;">{{pages[pageIndex].text}}</div>
     </transition-group>
@@ -23,48 +23,10 @@
 <script>
 export default {
     name: 'carousel',
-    // props: {pages:Array},
+    props: {pages:Array},
     data(){
         return{
-          pages: [
-              {title:'Synthesizer', text:'that is a lot of damage', bg:'#192635', 
-              img:'https://github.com/billju/billju.github.io/blob/master/images/adsr.jpg?raw=true',
-              href: '',
-              },
-              {title:'Agario', text:'that is a lot of damage', bg:'#111', 
-              img:'https://github.com/billju/billju.github.io/blob/master/images/agario.jpg?raw=true',
-              href: '',
-              },
-              {title:'Datepicker', text:'that is a lot of damage', bg:'#fff', 
-              img:'https://github.com/billju/billju.github.io/blob/master/images/datepicker.jpg?raw=true',
-              href: '',
-              },
-              {title:'Freecell', text:'that is a lot of damage', bg:'#03a9f4', 
-              img:'https://github.com/billju/billju.github.io/blob/master/images/freecell.jpg?raw=true',
-              href: '',
-              },
-              {title:'Greenband', text:'that is a lot of damage', bg:'#00bcd4', 
-              img:'https://github.com/billju/billju.github.io/blob/master/images/greenband.jpg?raw=true',
-              href: '',
-              },
-              {title:'Mystore', text:'that is a lot of damage', bg:'#009688', 
-              img:'https://github.com/billju/billju.github.io/blob/master/images/mystore.jpg?raw=true',
-              href: '',
-              },
-              {title:'RaspberryPi', text:'that is a lot of damage', bg:'#4caf50', 
-              img:'https://github.com/billju/billju.github.io/blob/master/images/raspberrypi.jpg?raw=true',
-              href: '',
-              },
-              {title:'Tetris', text:'that is a lot of damage', bg:'#cddc39', 
-              img:'https://github.com/billju/billju.github.io/blob/master/images/tetris.jpg?raw=true',
-              href: '',
-              },
-              {title:'YTplayer', text:'that is a lot of damage', bg:'#ff9800', 
-              img:'https://github.com/billju/billju.github.io/blob/master/images/musicplayer.jpg?raw=true',
-              href: '',
-              },
-            ],
-            pageIndex: 0, 
+            pageIndex: 1, 
             startY: 0,
             offsetY: 0,
             timeout: null,
@@ -105,23 +67,43 @@ export default {
             let idx = this.pageIndex+offset
             this.pageIndex = idx>0?idx<this.pages.length-1?idx:this.pages.length-1:0
             this.slideUp = offset>0
+        },
+        handleWheel(e){
+            this.slideUp = e.deltaY>0
+            if(this.scrollable){
+              this.switchOffset(e.deltaY>0?1:-1)
+              this.setTimeout()
+            }
+        },
+        gotoPage(href){
+            let a = document.createElement('a')
+            a.href = href
+            a.target = "_blank"
+            document.body.appendChild(a)
+            a.click()
         }
     },
     mounted(){
-        addEventListener('wheel',(e)=>{
-          this.slideUp = e.deltaY>0
-          if(this.scrollable){
-            this.switchOffset(e.deltaY>0?1:-1)
-            this.setTimeout()
-          }
+        this.wheelEvent = window.addEventListener('wheel',e=>{
+          this.handleWheel(e)
         });
+        this.pageIndex = 0
+    },
+    beforeDestroy(){
+        window.removeEventListener('wheel',e=>{this.handleWheel()})
     }
 }
 </script>
 
-<style>
+<style scoped>
+.carousel{
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+  background: #192635;
+}
 .psf-background {
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   width: 100%;
@@ -156,7 +138,7 @@ export default {
 }
 
 .psf-center {
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
   width: 80%;
@@ -181,6 +163,7 @@ export default {
   left: 65%;
   font-size: 24px;
   color: #fff;
+  white-space: pre;
 }
 
 .img {
@@ -194,7 +177,7 @@ export default {
 }
 
 .pagination {
-  position: fixed;
+  position: absolute;
   width: 20px;
   top: 50%;
   right: 20px;

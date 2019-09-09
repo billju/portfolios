@@ -135,6 +135,7 @@ class EzMap{
         this.container.appendChild(this.popup)
         // zoom event
         this.container.addEventListener('wheel',e=>{
+            e.preventDefault()
             if(this.smoothFinished){
                 this.handleZoom(e.clientX,e.clientY,this.zoom+(e.deltaY>0?-1:1))
             }

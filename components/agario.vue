@@ -185,7 +185,7 @@ export default {
             this.drawing = requestAnimationFrame(this.draw);
         },
         setCountdown(){
-            this.interval = setInterval(function(){
+            this.interval = setInterval(()=>{
                 this.countdown-=1
                 if(this.countdown==0){
                     clearInterval(this.interval)
@@ -246,7 +246,6 @@ export default {
             this.myBall.vector.y = this.myBall.speed*shapedCurve(vy)
         });
         container.addEventListener("touchmove", e=>{
-            e.preventDefault()
             let rect = container.getBoundingClientRect()
             var vx = (e.targetTouches[0].pageX-rect.x)/rect.width - 0.5,
                 vy = (e.targetTouches[0].pageY-rect.y)/rect.height - 0.5
@@ -274,6 +273,7 @@ export default {
             // this.initScene()
         });
         // 開始遊戲
+        this.startGame()
         this.drawing = requestAnimationFrame(this.draw);
     },
     beforeDestroy(){

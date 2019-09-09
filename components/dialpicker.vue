@@ -1,5 +1,5 @@
 <template>
-<div class="dialpicker" @mousemove="handleEventMove($event)" @mouseup="eventdown=null" @mouseleave="eventdown=null" @touchmove="handleEventMove($event)" @touchend="eventdown=null">   
+<div ref="picker" class="dialpicker">   
   <div class="border"></div>
   <transition :name="swipeUp?'swipe-up':'swipe-down'">
     <div class="dial" :key="hour" @mousedown="handelEventStart($event,'hour')" @touchstart="handelEventStart($event,'hour')">
@@ -24,10 +24,16 @@
 
 <script>
 export default {
-  props: {size:Number},
+  props: {
+    size: {
+      type: Number,
+      default: 24
+    },
+    container: {}
+  },
   data(){
     return {
-      hour: 0, minute: 0, swipeUp: false,
+      hour: 0, minute: 0, swipeUp: false, bindedContainer: {},
       eventdown: null, clientY: 0, accY: 0, threshold: 10,
     }
   },
@@ -41,8 +47,17 @@ export default {
     },
     handelEventStart(e,key){
       e.preventDefault()
-      this.clientY = e.clientY?e.clientY:e.targetTouches[0].pageY
+      this.clientY = e.clientY==undefined?e.targetTouches[0].pageY:e.clientY
       this.eventdown = key
+      if(this.bindedContainer!=this.container){
+          this.bindedcontainer = this.container?this.container:this.$refs.picker
+          this.bindedcontainer.addEventListener('mousemove',e=>{this.handleEventMove(e)})
+          this.bindedcontainer.addEventListener('mouseup',this.handleEventEnd)
+          this.bindedcontainer.addEventListener('mouseleave',this.handleEventEnd)
+          this.bindedcontainer.addEventListener('touchmove',e=>{this.handleEventMove(e)},{ passive: false })
+          this.bindedcontainer.addEventListener('touchend',e=>{this.handleEventEnd(e)},{ passive: false })
+          this.bindedContainer=this.container
+      }
     },
     handleEventMove(e){
       if(this.eventdown){
@@ -63,6 +78,9 @@ export default {
         }
       }
     },
+    handleEventEnd(){
+      this.eventdown=null
+    },
     two(value){return ('0'+value).substr(-2)},
   },
   computed:{
@@ -72,6 +90,9 @@ export default {
   },
   filters:{
     two(value){return ('0'+value).substr(-2)}
+  },
+  mounted(){
+
   }
 }
 </script>
@@ -107,15 +128,19 @@ export default {
 }
 .rotate-30 {
   transform: rotateX(30deg);
+  opacity: 0.8;
 }
 .rotate-60 {
   transform: rotateX(60deg) translateY(30%);
+  opacity: 0.3;
 }
 .rotate-300 {
   transform: rotateX(-60deg) translateY(-30%);
+  opacity: 0.3;
 }
 .rotate-330 {
   transform: rotateX(-30deg);
+  opacity: 0.8;
 }
 
 .swipe-up-enter-active {

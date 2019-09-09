@@ -233,8 +233,8 @@ export default {
       for(let key in this.left){this.left[key] = {}}
       this.history = []
       this.shuffleCard()
-      this.initPosition()
       this.removeHighlight()
+      this.initPosition()
       this.autoFillRight()
       this.checkMoreMove()
       clearInterval(this.timer)
@@ -302,6 +302,9 @@ export default {
       this.transition = '0.5s'
     },
     handleEventStart(e,cardRef){
+      if(this.history.length==0){
+          this.initPosition()
+      }
       // 關閉其他UI狀態
       clearInterval(this.interval);this.auto=false
       this.removeHighlight()
@@ -548,8 +551,11 @@ export default {
     }
   },
   mounted(){
-    this.newGame()
-    window.addEventListener('resize',()=>{this.initPosition()})
+      this.newGame()
+      window.addEventListener('resize',this.initPosition)
+  },
+  beforeDestroy(){
+      window.removeEventListener('resize',this.initPosition)
   }
 }
 </script>
