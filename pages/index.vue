@@ -47,6 +47,7 @@ import codepen from '~/static/codepen.png'
 import facebook from '~/static/facebook.png'
 import gmail from '~/static/gmail.png'
 import github from '~/static/github.png'
+import ogImage from '~/static/og-image.jpg'
 
 export default {
   components: {
@@ -56,7 +57,8 @@ export default {
     return {
       title: 'chuboy',
       meta: [
-        {hid:'description', name:'description', content:'My awesome portfolios'}
+        {hid:'og-image', property:'og-image', content: ogImage},
+        {hid:'description', name:'description', content:"contact with chuboy: billju666@gmail.com"}
       ]
     }
   },
@@ -145,9 +147,6 @@ export default {
         },
       ]
     }
-  },
-  methods: {
-    
   },
   mounted(){
     // let map = new EzMap(this.$refs.map,{})

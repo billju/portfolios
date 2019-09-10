@@ -239,6 +239,7 @@ import spectrum from '~/components/synth.spectrum.vue'
 import knob from '~/components/synth.knob.vue'
 
 import navbar from '~/components/navbar.vue'
+import ogImage from '~/static/og-image.jpg'
 export default {
     components: {
         datepicker,clockpicker,dialpicker,daterangepicker,
@@ -251,7 +252,8 @@ export default {
         return {
             title: 'chuboy',
             meta: [
-                {hid:'description', name:'description', content:'My awesome portfolios'}
+                {hid:'og-image', property:'og-image', content: ogImage},
+                {hid:'description', name:'description', content:"Chuboy's hademade components collection, including knob, datepicker, timepicker, date range picker, stepper and validation."}
             ]
         }
     },

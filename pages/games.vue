@@ -31,13 +31,15 @@ import tetris from '~/components/tetris.vue'
 import freecell from '~/components/freecell.vue'
 import greenband from '~/components/greenband.vue'
 import navbar from '~/components/navbar.vue'
+import ogImage from '~/static/og-image.jpg'
 export default {
     components: {agario,tetris,freecell,greenband,navbar},
     head(){
         return {
             title: 'chuboy',
             meta: [
-                {hid:'description', name:'description', content:'My awesome portfolios'}
+                {hid:'og-image', property:'og-image', content: ogImage},
+                {hid:'description', name:'description', content:"Chuboy's classic games reproductiin. Includes Freecell, Agar.io and Tetris."}
             ]
         }
     },

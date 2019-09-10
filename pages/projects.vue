@@ -14,13 +14,15 @@ import chatroom from '~/static/chatroom.jpg'
 
 import carousel from '~/components/carousel.vue'
 import navbar from '~/components/navbar.vue'
+import ogImage from '~/static/og-image.jpg'
 export default {
     components: {carousel,navbar},
     head(){
         return {
             title: 'chuboy',
             meta: [
-                {hid:'description', name:'description', content:'My awesome portfolios'}
+                {hid:'og-image', property:'og-image', content: ogImage},
+                {hid:'description', name:'description', content:"Chuboy's frontend projects. Includes hotel booking, MV player, live chat app, css animation and pomodoro."}
             ]
         }
     },
