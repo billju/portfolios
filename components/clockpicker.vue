@@ -1,11 +1,16 @@
 <template>
   <div class="clockpicker" :style="{width: size+'px', height: size+'px'}">
-    <div class="clock" @mousedown="mousedown=true" @mouseup="mousedown=false" @mouseleave="mousedown=false">
+    <div class="clock" @mousedown="eventActive=true" @mouseup="eventActive=false" 
+        @mouseleave="eventActive=false" @touchstart="eventActive=true">
       <div class="hour-niddle" :style="{transform:'rotate('+hour/hours.length*360+'deg)',boxShadow:shadow}"></div>
       <div class="minute-niddle" :style="{transform:'rotate('+minute/minutes.length*360+'deg)',boxShadow:shadow}"></div>
       <div class="center-dot" :style="{boxShadow:shadow}"></div>
-      <div class="number" v-for="h in hours" :key="'h'+h" :style="hourStyle(h)" @mouseover="handleMouseover('hour',hours.length-1,h)" @mousedown="hour=h">{{h}}</div>
-      <div class="number" v-for="m in minutes" :key="'m'+m" :style="minuteStyle(m)" @mouseover="handleMouseover('minute',minutes.length-1,m)" @mousedown="minute=m">{{(m%5==0||minute==m)?m:''}}</div>
+      <div class="number" v-for="h in hours" :key="'h'+h" :style="hourStyle(h)" 
+          @mouseover="handleEventmove('hour',hours.length-1,h)" @mousedown="hour=h" @touchmove="handleEventmove('hour',hours.length-1,h)"
+      >{{h}}</div>
+      <div class="number" v-for="m in minutes" :key="'m'+m" :style="minuteStyle(m)"
+          @mouseover="handleEventmove('minute',minutes.length-1,m)" @mousedown="minute=m" @touchmove="handleEventmove('minute',minutes.length-1,m)"
+      >{{(m%5==0||minute==m)?m:''}}</div>
     </div>
   </div>  
 </template>
@@ -19,7 +24,7 @@ data(){
       minutes: Array.from(Array(60).keys()),
       hour: 0,
       minute: 0,
-      mousedown: false,
+      eventActive: false,
       swipeUp: true,
       color: '#00bcd4',
       shadow: '0 0 5px 2px rgba(255,255,255,0.3)',
@@ -34,8 +39,8 @@ data(){
       this[key] = this[key]+i>max?0:this[key]+i<0?max:this[key]+i
       this.$emit('input', this.time)
     },
-    handleMouseover(key,max,i){
-      if(this.mousedown){
+    handleEventmove(key,max,i){
+      if(this.eventActive){
         this.swipeUp = (i>this[key])?true:false
         // 0 to max && max to 0 are different
         this.swipeUp = (i==0&&this[key]==max)||(i==max&&this[key]==0)?!this.swipeUp:this.swipeUp

@@ -65,13 +65,13 @@
             </tbody></table>
         </div>
         <div class="col col-sm-12 col-md-6">
-            <div>
+            <div class="flex-center">
                 <knob label="ATTACK" :container="container" :min="0" :max="1" v-model="adsr.a"/>
                 <knob label="DECAY" :container="container" :min="0" :max="1" v-model="adsr.d"/>
                 <knob label="SUSTAIN" :container="container" :min="0" :max="1" v-model="adsr.s"/>
                 <knob label="RELEASE" :container="container" :min="0" :max="1" v-model="adsr.r"/>
             </div>
-            <div>
+            <div class="flex-center">
                 <knob label="DETUNE" :container="container" :min="-100" :max="100" v-model="detune" @input="oscMod()"/>
                 <knob label="VOLUME" :container="container" :min="0" :max="0.3" v-model="volume" @input="masterGain.gain.value=$event"/>
                 <knob label="FILTER" :container="container" :min="5" :max="14" v-model="pow" @input="biquadFilter.frequency.value=Math.pow(2,$event)"/>
@@ -94,7 +94,7 @@
             <datepicker v-model="date"/>
         </div>
     </div></div>
-    <div class="light-grey"><div class="row">
+    <!-- <div class="light-grey"><div class="row">
         <div class="col col-sm-12 col-md-6">
             <h1>clock-picker</h1>
             <p>24小時制的時間選擇工具</p>
@@ -115,7 +115,7 @@
             </tbody></table>
             <dialpicker v-model="dial" :container="container"/>
         </div>
-    </div></div>
+    </div></div> -->
 
     <div class="light"><div class="row">
         <div class="col col-sm-12 col-lg-4">
@@ -212,14 +212,18 @@
             <json2container v-for="(value,name) in tables" :key="name" :rows="value" :title="name" @create-table="createTable" @close-table="closeTable"/>
         </div>
     </div></div>
+    <footer class="light-grey">
+        <span>Watch this project at </span>
+        <a href="https://github.com/billju/portfolios">https://github.com/billju/portfolios</a>
+    </footer>
     <navbar/>
 </div>
 </template>
 
 <script>
 import datepicker from '~/components/datepicker.vue'
-import clockpicker from '~/components/clockpicker.vue'
-import dialpicker from '~/components/dialpicker.vue'
+// import clockpicker from '~/components/clockpicker.vue'
+// import dialpicker from '~/components/dialpicker.vue'
 import daterangepicker from '~/components/daterangepicker.vue'
 
 import stepper from '~/components/stepper.vue'
@@ -242,7 +246,8 @@ import navbar from '~/components/navbar.vue'
 import ogImage from '~/static/og-image.jpg'
 export default {
     components: {
-        datepicker,clockpicker,dialpicker,daterangepicker,
+        datepicker,daterangepicker,
+        // clockpicker,dialpicker,
         stepper,creditcard,counter,colorpicker,
         switcher,progressbar,json2container,
         waveform,spectrum,osc,pianokey,knob,
@@ -253,7 +258,7 @@ export default {
             title: 'chuboy',
             meta: [
                 {hid:'og-image', property:'og-image', content: ogImage},
-                {hid:'description', name:'description', content:"Chuboy's hademade components collection, including knob, datepicker, timepicker, date range picker, stepper and validation."}
+                {hid:'description', name:'description', content:"Chuboy's hademade components collection, including knob, datepicker, date range picker, stepper and validation."}
             ]
         }
     },
@@ -341,15 +346,19 @@ export default {
 *{
     font-family: 微軟正黑體;
 }
+body{
+    overflow-x: hidden
+}
 </style>
 <style scoped>
 .pt-50{
     padding-top: 50px;
 }
-/* color */
-.light{
-    
+footer{
+    padding: 10px 0;
+    text-align: center;
 }
+/* color */
 .light-grey{
     background: #f5f5f5;
 }
@@ -362,7 +371,7 @@ export default {
 }
 /* native */
 p{
-    white-space: pre;
+    white-space: pre-wrap;
     margin: 10px;
 }
 textarea{
@@ -425,6 +434,12 @@ td.pa-0{
     overflow-x: scroll;
 }
 /* flex */
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
 .row{
     width: 100%;
     max-width: 1280px;

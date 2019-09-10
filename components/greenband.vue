@@ -1,5 +1,5 @@
 <template>
-<div class="d-flex" id="greenband" @input="handleInput()">
+<div id="greenband" @input="handleInput()">
   <div class="settings">
     <div class="input_box">
       <label class="bold">週期{{cycle | norm_3digit}}秒</label>
@@ -159,8 +159,8 @@ export default {
     },
     resize(){
       this.reso = Math.floor(this.range_items.length/2)
-      this.$refs.canvas.width = 450*this.reso
-      this.$refs.canvas.height = 450*this.reso
+      this.$refs.canvas.width = 480*this.reso
+      this.$refs.canvas.height = 480*this.reso
       this.calculate_green_band()
     },
     handleInput(){
@@ -190,8 +190,8 @@ export default {
   mounted(){
     this.ctx = this.$refs.canvas.getContext('2d');
     //this.$refs.canvas.style.height = 高度隨flex變動
-    this.$refs.canvas.width = 450*this.reso
-    this.$refs.canvas.height = 450*this.reso
+    this.$refs.canvas.width = 480*this.reso
+    this.$refs.canvas.height = 480*this.reso
     this.calculate_green_band();
   }
 }
@@ -200,6 +200,7 @@ export default {
 <style scoped>
 #greenband {
   margin: 0 auto;
+  padding: 0;
   max-width: 900px;
   font-family: "微軟正黑體";
   color: white;
@@ -210,13 +211,14 @@ export default {
 
 .d-flex {
   display: flex;
-  background: #009973;
 }
 
 .settings {
+  width: 100%;
+  background: #009973;
   border: solid 5px #00664d;
-  min-height: 450px;
-  max-width: 450px;
+  min-height: 480px;
+  max-width: 480px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -231,7 +233,7 @@ export default {
 }
 
 .bold {
-  font-size: 20px;
+  font-size: 1.2em;
   margin-left: 10px;
 }
 
@@ -265,9 +267,10 @@ export default {
 }
 
 canvas {
+  display: inline-block;
   border: solid 5px #00664d;
   background-color: white;
-  width: 450px;
+  width: 480px;
 }
 
 input {
@@ -313,7 +316,7 @@ input[type="range"] {
   background: #00664d;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   #greenband {
     flex-direction: column-reverse;
     zoom: 0.8;

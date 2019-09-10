@@ -15,12 +15,11 @@
       <p>挑戰在有限的綠燈時間下，讓最多比例的車輛能夠連續通過連鎖路口</p>
     </div>
     <greenband/>
-    <tetris class="mt-50">
-        <div class="flex-column">
-            <h1>Tetris 俄羅斯方塊</h1>
-            <p>即便Tetris Battle已成為時代的眼淚，但COMBO技巧不會隨之而滅</p>
-        </div>
-    </tetris>
+    <div class="flex-column mt-50">
+        <h1>Tetris 俄羅斯方塊</h1>
+        <p>即便Tetris Battle已成為時代的眼淚，但COMBO技巧不會隨之而滅</p>
+    </div>
+    <tetris/>
     <navbar/>
 </div>
 </template>
@@ -49,6 +48,9 @@ export default {
 <style scoped>
 h1{
     padding: 20px;
+}
+p{
+    padding: 0 20px;
 }
 .dark{
     padding-top: 50px;

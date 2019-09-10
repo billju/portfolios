@@ -27,28 +27,34 @@ export default {
     data(){
         return{
             pageIndex: 1, 
-            startY: 0,
-            offsetY: 0,
+            startX: 0,
+            offsetX: 0,
             timeout: null,
             scrollable: true,
             slideUp: true,
         }
     },
     methods: {
-        handleTouchStart: function(e){
-            this.startY = e.targetTouches[0].pageY;
+        handleTouchStart(e){
+            this.startX = e.targetTouches[0].pageX;
         },
-        handleTouchMove: function(e){
-            this.offsetY = e.targetTouches[0].pageY - this.startY;
+        handleTouchMove(e){
+            this.offsetX = e.targetTouches[0].pageX - this.startX;
         },
-        handleTouchEnd: function(){
-            var threshold = 200;
+        handleTouchEnd(){
+            var threshold = 100;
             var pi = this.pageIndex;
             if(this.scrollable){
-                if(this.offsetY>threshold){this.switchOffset(-1)}  
-                if(this.offsetY<-threshold){this.switchOffset(1)}
+                if(this.offsetX>threshold){
+                    this.switchOffset(-1)
+                    this.setTimeout()
+                } 
+                else if(this.offsetX<-threshold){
+                    this.switchOffset(1)
+                    this.setTimeout()
+                }
             }
-            this.offsetY = 0;
+            this.offsetX = 0;
         },
         setTimeout(){
             this.scrollable = false
@@ -84,13 +90,11 @@ export default {
         }
     },
     mounted(){
-        this.wheelEvent = window.addEventListener('wheel',e=>{
-          this.handleWheel(e)
-        });
+        this.wheelEvent = window.addEventListener('wheel',this.handleWheel)
         this.pageIndex = 0
     },
     beforeDestroy(){
-        window.removeEventListener('wheel',e=>{this.handleWheel()})
+        window.removeEventListener('wheel',this.handleWheel)
     }
 }
 </script>
@@ -161,9 +165,9 @@ export default {
   position: absolute;
   top: 50%;
   left: 65%;
-  font-size: 24px;
+  font-size: 1.8em;
   color: #fff;
-  white-space: pre;
+  white-space: pre-wrap;
 }
 
 .img {
@@ -237,7 +241,8 @@ i.material-icons {
   .p-text {
     background: rgba(0, 0, 0, 0.8);
     left: 0;
-    width: 80%;
+    font-size: 1.5em;
+    max-width: 100%;
     padding: 10px 20px;
   }
 

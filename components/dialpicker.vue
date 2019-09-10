@@ -46,16 +46,15 @@ export default {
       this[key] = this[key]+i>max?0:this[key]+i<0?max:this[key]+i
     },
     handelEventStart(e,key){
-      e.preventDefault()
       this.clientY = e.clientY==undefined?e.targetTouches[0].pageY:e.clientY
       this.eventdown = key
       if(this.bindedContainer!=this.container){
           this.bindedcontainer = this.container?this.container:this.$refs.picker
-          this.bindedcontainer.addEventListener('mousemove',e=>{this.handleEventMove(e)})
+          this.bindedcontainer.addEventListener('mousemove',this.handleEventMove)
           this.bindedcontainer.addEventListener('mouseup',this.handleEventEnd)
           this.bindedcontainer.addEventListener('mouseleave',this.handleEventEnd)
-          this.bindedcontainer.addEventListener('touchmove',e=>{this.handleEventMove(e)},{ passive: false })
-          this.bindedcontainer.addEventListener('touchend',e=>{this.handleEventEnd(e)},{ passive: false })
+          this.bindedcontainer.addEventListener('touchmove',this.handleEventMove,{ passive: false })
+          this.bindedcontainer.addEventListener('touchend',this.handleEventEnd,{ passive: false })
           this.bindedContainer=this.container
       }
     },

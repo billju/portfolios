@@ -1,6 +1,5 @@
 <template>
 <div class="container d-grid">
-  <div class="dashboard"><slot/></div>
   <div class="hold-block" @click.prevent="move('left');$event.preventED">
     <div>
       <div class="block" @click.prevent="holdBlock()">
@@ -437,7 +436,6 @@ export default {
   margin: 0 auto;
   padding: 0;
   max-width: 760px;
-  min-height: 100vh;
 }
 table {
   border-collapse: collapse;
@@ -635,24 +633,21 @@ ol{
 .d-grid {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  grid-template-rows: 1fr 6fr 1fr;
+  grid-template-rows: 6fr 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
 }
-.d-grid .dashboard {
-  grid-area: 1/1/2/4;
-}
 .d-grid .game-screen {
-  grid-area: 2/2/3/3;
+  grid-area: 1/2/2/3;
 }
 .d-grid .next-block {
-  grid-area: 2/3/3/4;
+  grid-area: 1/3/2/4;
 }
 .d-grid .hold-block {
-  grid-area: 2/1/3/2;
+  grid-area: 1/1/2/2;
 }
 .d-grid .down-area {
-  grid-area: 3/1/3/4;
+  grid-area: 2/1/3/4;
 }
 
 @media only screen and (max-width: 680px) {

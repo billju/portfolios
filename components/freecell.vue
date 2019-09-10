@@ -10,7 +10,7 @@
     <div class="btn">Time{{formatTime}}</div>
     <div class="btn">Move{{history.length}}</div>
   </div>
-  <div class="flex-around ">
+  <div class="flex-around">
     <div class="slot slot-left" v-for="(val,name) in left" :key="name" :ref="name"></div>
     <div class="slot slot-right" v-for="(val,name) in right" :key="name" :ref="name"></div>
   </div>
@@ -263,7 +263,7 @@ export default {
         }
       }
     },
-    handleEventEnd(e){
+    handleEventEnd(){
       if(this.md.ref){
         // 搜尋滑鼠放開的位置所對應到的插槽，利用兩面逼近法
         // 排列必定是左上到右下，所以先比對篩選左上角的位置再取最後一個即可
@@ -567,17 +567,18 @@ export default {
     padding: 0;
     user-select: none;
     position: relative;
-    min-height: calc(100vh - 40px);
+    min-height: 600px;
 }
 .flex-around {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .card {
   width: 100px;
   height: 160px;
-  font-size: 24px;
+  font-size: 1.5em;
   box-shadow: 0 0 0 1px #aaa inset;
   border-radius: 10px;
   color: #fff;
@@ -624,7 +625,7 @@ export default {
   top: 50%;
   color: rgba(0, 0, 0, 0.3);
   transform: translate(-50%, -50%);
-  font-size: 54px;
+  font-size: 2.4em;
 }
 
 .slot {
@@ -654,7 +655,7 @@ export default {
   padding: 5px 10px;
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0.5);
-  font-size: 16px;
+  font-size: 1em;
   font-weight: bold;
   color: #fff;
   cursor: pointer;
@@ -683,18 +684,21 @@ export default {
   text-align: center;
 }
 
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 992px) {
   .slot, .card {
     width: 40px;
     height: 64px;
   }
+  .slot{
+    margin: 5px 0;
+  }
 
   .card {
-    font-size: 12px;
+    font-size: 0.8em;
   }
 
   .card-center {
-    font-size: 18px;
+    font-size: 1.2em;
   }
 }
 .swipe-up-enter-active {
