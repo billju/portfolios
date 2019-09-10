@@ -1,5 +1,5 @@
 <template>
-<div>
+<div ref="fullscreen">
     <carousel :pages="pages"/>
     <navbar/>
 </div>
@@ -61,6 +61,17 @@ export default {
               },
             ],
         }
+    },
+    methods: {
+        hideAddressBar(){
+            setTimeout(()=>{ window.scrollTo(0, 1);}, 0);
+        }
+    },
+    mounted(){
+        window.addEventListener("load",this.hideAddressBar);
+    },
+    beforeDestroy(){
+        window.removeEventListener("load",this.hideAddressBar);
     }
 }
 </script>

@@ -2,7 +2,8 @@
 <div class="psr" :style="{minWidth}">
     <div class="d-inline-block" v-for="(pk,pi) in pianoKeys" :key="pi" 
         :class="pk.black?'black-key':'white-key'" :style="{color:pk.press?'white':'#666'}" 
-        @mousedown="handleEventStart(pk)" @mouseup="handleEventEnd(pk)" @mouseleave="handleEventEnd(pk)">
+        @mousedown="handleEventStart(pk)" @mouseup="handleEventEnd(pk)" @mouseleave="handleEventEnd(pk)"
+        @touchstart="handleEventStart(pk)" @touchend="handleEventEnd(pk)" @touchcancel="handleEventEnd(pk)">
         <div class="keychar">{{pk.char}}</div>
     </div>
 </div>

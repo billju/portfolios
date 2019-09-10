@@ -1,6 +1,18 @@
-# nuxest
+# Chuboy's portfolio
 
-> My flawless Nuxt.js project
+> Collection of my project, handmade components, game and articles
+
+## Components collection
+1. navbar
+2. pickers (datepicker, date-range-picker)
+3. inputs (counter, creditcard, swither, textinput)
+4. synth (knob, key, osc, spectrum, waveform)
+5. carousel (full page)
+
+## Games
+1. freecell
+2. agario
+3. tetris 
 
 ## Build Setup
 
@@ -18,5 +30,3 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).

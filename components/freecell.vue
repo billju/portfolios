@@ -698,7 +698,7 @@ export default {
   }
 
   .card-center {
-    font-size: 1.2em;
+    display: none;
   }
 }
 .swipe-up-enter-active {

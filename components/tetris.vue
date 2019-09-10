@@ -527,6 +527,7 @@ ol{
   width: 100%;
   bottom: 0;
   margin: auto;
+  color: #000;
   background: #fff;
   padding: 20px;
   max-width: 700px;
@@ -633,7 +634,7 @@ ol{
 .d-grid {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  grid-template-rows: 6fr 1fr;
+  grid-template-rows: 3fr 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
 }

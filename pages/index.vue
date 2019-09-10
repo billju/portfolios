@@ -67,7 +67,7 @@ export default {
       icons: [
         {href:'https://codepen.io/HandsomeChuBoy',src:codepen},
         {href:'https://www.facebook.com/baibai.zhu1',src:facebook},
-        {href:'mailto://billju666@gmail.com',src:gmail},
+        {href:'mailto:billju666@gmail.com',src:gmail},
         {href:'https://github.com/billju',src:github},
       ],
       notes: [

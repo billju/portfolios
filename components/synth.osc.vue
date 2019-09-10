@@ -1,5 +1,5 @@
 <template>
-<div class="psr">
+<div id="osc">
     <svg style="width:0;height:0">
       <linearGradient id="gradient" y1="1" y2="0">
         <stop offset="0%" stop-color="#447799"></stop>
@@ -124,8 +124,11 @@ export default {
 </script>
 
 <style>
-.psr{
+#osc{
     position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .square-marker {
