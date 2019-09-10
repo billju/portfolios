@@ -29,31 +29,31 @@ export default {
             pages: [
               {
                 title:'Booking', bg:'#8bc34a', 
-                text:'RWD旅館訂房網頁\n採用Penny的設計稿\n使用手刻的日期選擇器\n隨伺服器回應渲染頁面',
+                text: "Hotel booking webpage with RWD\nUsed Penny's design pattern\nHademade date-range-picker included\nRender webpage by RESTful API",
                 img: booking,
                 href: 'https://billju.github.io/booking.github.io/',
               },
               {
                 title:'MV Box', bg:'#607d8b',
-                text:'以音樂清單為導向的播放器\n串接YoutubeAPI\n部屬在firebase上\n功能具統計熱門排行\n使用者可建立客製化清單', 
+                text:"Playlist oriented player\nSpecified for desktop user\nLinked with Youtube API\nDeployed on Firebase\nWould rank popularity of video\nUsers can estabalish their own playlists", 
                 img: musicplayer,
                 href: 'https://musicplayer-666.web.app/',
               },
               {
                 title:'Chatroom', bg:'#9e9e9e', 
-                text:'Socket.io全端作品\n採用JessHsu的設計稿\n部屬在虛擬機上\n即時聊天與上傳圖片',
+                text:"Fullstack Socket.io portfolio\nUsed JessHsu's design pattern\nDeployed on virtual machine\nSend massage and image in realtime",
                 img: chatroom,
                 href: 'http://139.162.23.48:3000/',
               },
               {
                 title:'RaspberryPi', bg:'#4caf50', 
-                text:'Codepen小品\nanimate.ss動畫挑戰\nRaspberryPi是好物', 
+                text:"Codepen piece\nanimate.ss challenge\nRaspberry Pi is a masterpiece",
                 img: raspberrypi,
                 href: 'https://codepen.io/HandsomeChuBoy/full/MmEoQj',
               },
               {
                 title:'Pomodoro', bg:'#e91e63', 
-                text:'Codepen小品\nRWD番茄鐘\n行程排定應用程式\n每25分鐘休息5分鐘\n全神貫注完成工作',
+                text:"Codepen piece\nPomodoro app with RWD\nUsed for individaul schedule\nTake a break every 25 minutes\nMade work most efficient",
                 img: pomodoro,
                 href: 'https://codepen.io/HandsomeChuBoy/full/agMBRX',
               },

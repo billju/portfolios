@@ -1,7 +1,7 @@
 <template>
 <div ref="container">
     <div class="dark pt-50"><div class="row">
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-md-6">
             <h1>Spectrum &amp; Wavefrom</h1>
             <p>頻譜與波型顯示組件，輸入音頻並且做快速傅立葉轉換來呈現波形</p>
             <table><tbody>
@@ -10,11 +10,11 @@
                 <tr><td>input</td><td>Object</td><td>音頻節點輸入</td></tr>
             </tbody></table>
         </div>
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-md-6">
             <spectrum :audioContext="ctx" :input="this.biquadFilter"/>
             <waveform :audioContext="ctx" :input="this.biquadFilter"/>
         </div>
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-md-6">
             <h1>Oscillator</h1>
             <p>振盪器</p>
             <table><tbody>
@@ -29,10 +29,10 @@
                 <tr><td>modulate</td><td>undefined</td><td>調變(控制播放中的振盪器)</td></tr>
             </tbody></table>
         </div>
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-md-6">
             <osc ref="osc" :adsr="adsr" :audioContext="ctx" :detune="detune" :output="this.masterGain"/>    
         </div>
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-md-6">
             <h1>Pianokey</h1>
             <p></p>
             <table><tbody>
@@ -44,12 +44,12 @@
                 <tr><td>oscStop</td><td>Number</td><td>{{endFreq.toFixed(2)}}</td></tr>
             </tbody></table>
         </div>
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-md-6">
             <div class="overflow-x">
                 <pianokey @oscStart="oscStart" @oscStop="oscStop"/>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-md-6">
             <h1>Knob</h1>
             <p></p>
             <table><tbody>
@@ -64,7 +64,7 @@
                 <tr><td>value</td><td>Number</td><td>{{volume}}</td></tr>
             </tbody></table>
         </div>
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-md-6">
             <div>
                 <knob label="ATTACK" :container="container" :min="0" :max="1" v-model="adsr.a"/>
                 <knob label="DECAY" :container="container" :min="0" :max="1" v-model="adsr.d"/>
@@ -79,8 +79,9 @@
         </div>
     </div></div>
     <div class="light"><div class="row">
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-md-6">
             <h1>date-picker</h1>
+            <p>日期選擇器，點擊中上方的大按鈕可以切換成選擇年月</p>
             <table><tbody>
                 <tr><th>bind</th><th>type</th><th>demo</th></tr>
                 <tr><td>months</td><td>Array</td><td>Jan~Dec</td></tr>
@@ -89,12 +90,12 @@
                 <tr><td>value</td><td>String</td><td>{{date}}</td></tr>
             </tbody></table>
         </div>
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-md-6">
             <datepicker v-model="date"/>
         </div>
     </div></div>
     <div class="light-grey"><div class="row">
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-md-6">
             <h1>clock-picker</h1>
             <p>24小時制的時間選擇工具</p>
             <table><tbody>
@@ -103,7 +104,7 @@
             </tbody></table>
             <clockpicker v-model="clock"/>
         </div>
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-md-6">
             <h1>dial-picker</h1>
             <p>滾輪式時間選擇工具</p>
             <table><tbody>
@@ -117,14 +118,14 @@
     </div></div>
 
     <div class="light"><div class="row">
-        <div class="col-sm-4 col-md-12">
+        <div class="col col-sm-12 col-lg-4">
             <h1>daterange-picker</h1>
             <p>日期範圍選擇器，旅行飯店機票通用</p>
             <table><tbody>
                 <tr><th>bind</th><th>type</th><th>實例</th></tr>
                 <tr><td>banned</td><td>String</td><td>{{rangeBind.banned}}</td></tr>
-                <tr><td>lowerBound</td><td>Date</td><td>{{rangeBind.lb | toLocaleString}}</td></tr>
-                <tr><td>upperBound</td><td>Date</td><td>{{rangeBind.ub | toLocaleString}}</td></tr>
+                <tr><td>lb(lower bound)</td><td>Date</td><td>{{rangeBind.lb | toLocaleString}}</td></tr>
+                <tr><td>ub(upper bound)</td><td>Date</td><td>{{rangeBind.ub | toLocaleString}}</td></tr>
                 <tr><th>emit</th><th>type</th><th>實例</th></tr>
                 <tr><td>value.start</td><td>Date</td><td>{{daterange.start | toLocaleString}}</td></tr>
                 <tr><td>value.end</td><td>Date</td><td>{{daterange.end | toLocaleString}}</td></tr>
@@ -133,16 +134,16 @@
                 </td></tr>
             </tbody></table>
         </div>
-        <div class="col-sm-8 col-md-12">
+        <div class="col col-sm-12 col-lg-8">
             <daterangepicker v-model="daterange" :banned="rangeBind.banned" :lb="rangeBind.lb" :ub="rangeBind.ub"/>
         </div>
     </div></div>
 
     <div class="light-grey"><div class="row">
-        <div class="col-sm-12">
+        <div class="col col-sm-12">
             <stepper :steps="stp.steps" :index="stp.index*1" :background="color.primary"/>
         </div>
-        <div class="col-sm-4 col-md-12">
+        <div class="col col-sm-12 col-lg-4">
             <h1>stepper</h1>
             <p>步驟提示欄位，結帳教學指導通用</p>
             <table><tbody>
@@ -157,7 +158,7 @@
                 <tr><td>background</td><td>String</td><td><colorpicker v-model="color"/></td></tr>
             </tbody></table>
         </div>
-        <div class="col-sm-4 col-md-6">
+        <div class="col col-sm-12 col-md-6 col-lg-4">
             <h1>creditcard</h1>
             <p>信用卡輸入、自動換格</p>
             <table><tbody>
@@ -170,13 +171,13 @@
                 <tr><td>validate</td><td>Boolean</td><td><button class="btn btn-outline" @click="validate()">點我驗證</button></td></tr>
             </tbody></table>
         </div>
-        <div class="col-sm-4 col-md-6">
+        <div class="col col-sm-12 col-md-6 col-lg-4">
             <creditcard ref="creditCard" v-model="creditCard"/>
         </div>
     </div></div>
 
     <div class="light"><div class="row">
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-lg-6">
             <h1>json2container</h1>
             <p>提供子元件控制項，點擊Array或Object格式的方框可以產生子表格</p>
             <table><tbody>
@@ -198,7 +199,7 @@
                 <tr><th>emit</th><th>type</th><th>說明</th></tr>
                 <tr><td>create-table</td><td>Object</td><td>點擊td的事件</td></tr>
                 <tr><td colspan="3" class="pa-0">
-                    <textarea class="col-sm-12" v-model="url"/>
+                    <textarea class="col col-sm-12" v-model="url"/>
                     <progressbar v-if="onProgress"/>
                 </td></tr>
                 <tr><td colspan="3">
@@ -207,7 +208,7 @@
                 </td></tr>
             </tbody></table>
         </div>
-        <div class="col-sm-6">
+        <div class="col col-sm-12 col-lg-6">
             <json2container v-for="(value,name) in tables" :key="name" :rows="value" :title="name" @create-table="createTable" @close-table="closeTable"/>
         </div>
     </div></div>
@@ -433,36 +434,61 @@ td.pa-0{
     padding-bottom: 30px;
     border-bottom: 1px solid #aaa;
 }
-.col-sm-4, .col-sm-6, .col-sm-8, .col-sm-12{
+.col{
     padding-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-}
-.col-sm-4{
-    width: calc(100% * 4 / 12);
-}
-.col-sm-6{
-    width: calc(100% * 6 / 12);
-}
-.col-sm-8{
-    width: calc(100% * 8 / 12);
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
 }
 .col-sm-12{
-    width: 100%;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
 }
-@media screen and (max-width: 960px){
+@media screen and (min-width: 768px){
+    .col-md-4{
+        -ms-flex: 0 0 33.333333%;
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
     .col-md-6{
-        width: 50%;
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    .col-md-8{
+        -ms-flex: 0 0 66.666667%;
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
     }
     .col-md-12{
-        width: 100%;
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
     }
 }
-@media screen and (max-width: 640px){
-    .col-sm-4, .col-sm-6, .col-sm-8{
-        width: 100%;
+@media screen and (min-width: 992px){
+    .col-lg-4{
+        -ms-flex: 0 0 33.333333%;
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+    .col-lg-6{
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    .col-lg-8{
+        -ms-flex: 0 0 66.666667%;
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
     }
 }
+
 </style>

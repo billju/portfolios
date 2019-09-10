@@ -92,7 +92,7 @@ export default {
             }
         },
         createGainNode(now){
-            let adsr = Object.assign({a:0,aq:0,d:1,dq:0,s:1,r:0,rq:0.5},this.adsr)
+            let adsr = Object.assign({a:0,aq:0.5,d:1,dq:0.5,s:1,r:0,rq:0.5},this.adsr)
             let gainNode = this.audioContext.createGain()
             let gain = gainNode.gain
             gain.linearRampToValueAtTime(0, now)

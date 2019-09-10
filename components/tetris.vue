@@ -1,6 +1,6 @@
 <template>
 <div class="container d-grid">
-  <div class="dashboard"></div>
+  <div class="dashboard"><slot/></div>
   <div class="hold-block" @click.prevent="move('left');$event.preventED">
     <div>
       <div class="block" @click.prevent="holdBlock()">
@@ -381,6 +381,37 @@ export default {
             this.main();
             this.countDown();
             this.menu = false;
+        },
+        handleKeydown(e){
+            e.preventDefault()
+            switch(e.which){
+                case 16: //shift
+                    if(!this.spawnNewBlock) this.holdBlock()
+                    break;
+                case 32: //space
+                    if(!this.spawnNewBlock) this.spaceDown()
+                    break;
+                case 37:
+                    this.move('left')
+                    break;
+                case 38: //up arrow
+                    this.spinBlock(true);
+                    break;
+                case 39:
+                    this.move('right')
+                    break;
+                case 40:
+                    this.move('down');
+                    break;
+                case 88: //X
+                    this.spinBlock(true);
+                    break;
+                case 90: //Z
+                    this.spinBlock(false);
+                    break;
+                default:
+                   break;
+            }
         }
     },
     mounted(){
@@ -393,38 +424,10 @@ export default {
         this.showBlock()
         //this.main()
         //this.countDown()
-        window.addEventListener('keydown',e=>{
-            e.preventDefault()
-            var key= e.which;
-            switch(key){
-                case 16: //shift
-                if(!this.spawnNewBlock) this.holdBlock()
-                break;
-                case 32: //space
-                if(!this.spawnNewBlock) this.spaceDown()
-                break;
-                case 37:
-                this.move('left')
-                break;
-                case 38: //up arrow
-                this.spinBlock(true);
-                break;
-                case 39:
-                this.move('right')
-                break;
-                case 40:
-                this.move('down');
-                break;
-                case 88: //X
-                this.spinBlock(true);
-                break;
-                case 90: //Z
-                this.spinBlock(false);
-                break;
-                default:
-                break;
-            }
-        })
+        window.addEventListener('keydown',this.handleKeydown)
+    },
+    beforeDestroy(){
+        window.removeEventListener('keydown',this.handleKeydown)
     }
 }
 </script>
@@ -436,7 +439,6 @@ export default {
   max-width: 760px;
   min-height: 100vh;
 }
-
 table {
   border-collapse: collapse;
   background: #607d8b;

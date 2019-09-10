@@ -206,6 +206,7 @@ export default {
         },
         endGame(){
             this.showScore = true
+            this.score = Math.ceil(this.myBall.radius*this.myBall.radius)-225
             clearInterval(this.interval)
         },
         initScene(){

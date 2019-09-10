@@ -1,19 +1,5 @@
 <template>
 <div class="container" @mousemove="handleEventMove" @mouseup="handleEventEnd" @mouseleave="handleEventLeave" @touchmove="handleEventMove" @touchend="handleEventEnd" @touchcancel="handleEventLeave">
-  <div class="d-flex">
-    <div class="slot slot-left" v-for="(val,name) in left" :key="name" :ref="name"></div>
-    <div class="slot slot-right" v-for="(val,name) in right" :key="name" :ref="name"></div>
-  </div>
-  <div class="d-flex">
-    <div class="slot slot-below" v-for="(val,name) in below" :key="name" :ref="name"></div>
-    <div class="card" v-for="(card,name) in cards" :key="name" :ref="name" :style="{transition: transition}" :class="suitColor(card.suit)" @dblclick="autoFillAny(name)" @mousedown="handleEventStart($event,name)" @touchstart="handleEventStart($event,name)"> 
-      <div class="card-lt">{{card.txt}}</div>
-      <div class="card-rt">{{card.suit}}</div>
-      <div class="card-lb">{{card.suit}}</div>
-      <div class="card-rb">{{card.txt}}</div>
-      <div class="card-center">{{card.suit}}</div>
-    </div>
-  </div>
   <div class="btn-group">
     <div class="btn" @click="toggleRewind()">{{rewind?'STOP':'REWIND'}}</div>
     <div class="btn" @click="undo()">UNDO</div>
@@ -23,6 +9,20 @@
     <div class="btn" @click="toggleAuto()">{{auto?'STOP':'AUTO'}}</div>
     <div class="btn">Time{{formatTime}}</div>
     <div class="btn">Move{{history.length}}</div>
+  </div>
+  <div class="flex-around ">
+    <div class="slot slot-left" v-for="(val,name) in left" :key="name" :ref="name"></div>
+    <div class="slot slot-right" v-for="(val,name) in right" :key="name" :ref="name"></div>
+  </div>
+  <div class="flex-around">
+    <div class="slot slot-below" v-for="(val,name) in below" :key="name" :ref="name"></div>
+    <div class="card" v-for="(card,name) in cards" :key="name" :ref="name" :style="{transition: transition}" :class="suitColor(card.suit)" @dblclick="autoFillAny(name)" @mousedown="handleEventStart($event,name)" @touchstart="handleEventStart($event,name)"> 
+      <div class="card-lt">{{card.txt}}</div>
+      <div class="card-rt">{{card.suit}}</div>
+      <div class="card-lb">{{card.suit}}</div>
+      <div class="card-rb">{{card.txt}}</div>
+      <div class="card-center">{{card.suit}}</div>
+    </div>
   </div>
   <transition name="swipe-up">
     <div class="flag text-center" v-if="win" @click="win=false">
@@ -569,9 +569,9 @@ export default {
     position: relative;
     min-height: calc(100vh - 40px);
 }
-.d-flex {
+.flex-around {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 .card {
@@ -641,9 +641,8 @@ export default {
 }
 
 .btn-group {
-  position: absolute;
+  margin: 0 auto;
   width: 100%;
-  bottom: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
