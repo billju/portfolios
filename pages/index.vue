@@ -1,7 +1,7 @@
 <template>
 <div class="bg-dark">
     <div class="flex-column">
-      <h1>HackMD筆記</h1>
+      <h1>HackMD Notes</h1>
     </div>
     <div class="flex-around-container">
       <a class="card" v-for="note in notes" :key="note.href" :href="note.href" target="_blank">
@@ -13,7 +13,7 @@
       </a>
     </div>
     <div class="flex-column">
-      <h1>Github專案</h1>
+      <h1>Github Projects</h1>
     </div>
     <div class="flex-around-container">
       <a class="card" v-for="git in githubs" :key="git.href" :href="git.href" target="_blank">
@@ -80,12 +80,12 @@ export default {
         {
           href:'https://hackmd.io/fxoAisnGRCKJLA8msKrTVA',
           title: 'Flask筆記',
-          content: 'flask是個微框架(microframework)，相較於django把所有MTV(model、template、view)架構都打包好了，僅提供最基礎的功能...',
+          content: 'Flask是個微框架(microframework)，相較於django把所有MTV(model、template、view)架構都打包好了，僅提供最基礎的功能...',
           tags: ['python','backend','flask'],
         },
         {
           href:'https://hackmd.io/bN8NsOKBSF2hpE7Y9monXg',
-          title: 'Sklearn筆記',
+          title: 'sklearn筆記',
           content: '地表最強機器學習套件...',
           tags: ['machine learning','beginner'],
         },
@@ -135,7 +135,7 @@ export default {
         },
         {
           href:'https://github.com/billju/gurobi-packing',
-          title: 'GUROBI最佳化',
+          title: 'GUROBI Optimization',
           content: '探討三維空間使用最佳化...',
           tags: ['c++','linear programming'],
         },

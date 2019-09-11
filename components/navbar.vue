@@ -7,10 +7,10 @@
         <div></div>
       </div>
       <ul class="navbar-menu">
-        <nuxt-link to="/projects"><li>專案</li></nuxt-link>
-        <nuxt-link to="/handmade"><li>手刻組件</li></nuxt-link>
-        <nuxt-link to="/games"><li>經典遊戲</li></nuxt-link>
-        <nuxt-link to="/"><li>關於</li></nuxt-link>
+        <nuxt-link to="/projects"><li>Projects</li></nuxt-link>
+        <nuxt-link to="/handmade"><li>Components</li></nuxt-link>
+        <nuxt-link to="/games"><li>Games</li></nuxt-link>
+        <nuxt-link to="/"><li>About</li></nuxt-link>
       </ul>
     </div>
 </nav>

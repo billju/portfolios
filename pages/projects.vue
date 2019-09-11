@@ -31,31 +31,31 @@ export default {
             pages: [
               {
                 title:'Booking', bg:'#8bc34a', 
-                text: "Hotel booking webpage with RWD\nUsed Penny's design pattern\nHademade date-range-picker included\nRender webpage by RESTful API",
+                text: "A RWD hotel booking webpage (made with Penny's design pattern) that is featured with hademade date-range-picker and rendered by RESTful API.",
                 img: booking,
                 href: 'https://billju.github.io/booking.github.io/',
               },
               {
                 title:'MV Box', bg:'#607d8b',
-                text:"Playlist oriented player\nSpecified for desktop user\nLinked with Youtube API\nDeployed on Firebase\nWould rank popularity of video\nUsers can estabalish their own playlists", 
+                text:"A playlist oriented video player that is specified for desktop user, linked with Youtube API, deployed on Firebase and ranks popularity of videos. Also, users can estabalish their own playlists.", 
                 img: musicplayer,
                 href: 'https://musicplayer-666.web.app/',
               },
               {
                 title:'Chatroom', bg:'#9e9e9e', 
-                text:"Fullstack Socket.io portfolio\nUsed JessHsu's design pattern\nDeployed on virtual machine\nSend massage and image in realtime",
+                text:"A fullstack chat app (made with JessHsu's design pattern) that used Socket.io and deployed on virtual machine. Users can send massage and image in realtime.",
                 img: chatroom,
                 href: 'http://139.162.23.48:3000/',
               },
               {
                 title:'RaspberryPi', bg:'#4caf50', 
-                text:"Codepen piece\nanimate.ss challenge\nRaspberry Pi is a masterpiece",
+                text:"A Codepen piece for animate.ss challenge. Also a challenge of flat design.",
                 img: raspberrypi,
                 href: 'https://codepen.io/HandsomeChuBoy/full/MmEoQj',
               },
               {
                 title:'Pomodoro', bg:'#e91e63', 
-                text:"Codepen piece\nPomodoro app with RWD\nUsed for individaul schedule\nTake a break every 25 minutes\nMade work most efficient",
+                text:"A RWD pomodoro app that makes users' work most efficient. Try to take a break every 25-minutes-long intensive work.",
                 img: pomodoro,
                 href: 'https://codepen.io/HandsomeChuBoy/full/agMBRX',
               },

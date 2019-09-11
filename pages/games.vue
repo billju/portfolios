@@ -1,23 +1,23 @@
 <template>
 <div class="dark">
     <div class="flex-column">
-      <h1>Freecell 新接龍</h1>
-      <p>改編window xp上的經典遊戲，添加了自動搜索的功能，點擊AUTO可讓遊戲變成放置手遊</p>
+      <h1>Freecell</h1>
+      <p>Revised from classic game on Windows XP and added automatic searching function. Let's click "AUTO" button to give it a try.</p>
     </div>
     <freecell/>
     <div class="flex-column">
-      <h1>Agar.io 細胞吞噬</h1>
-      <p>改編馬特烏斯·瓦拉達里斯的網頁大型多人動作遊戲，這次換玩家跟電腦敵對，並且挑戰在90秒內得到的最高分數</p>
+      <h1>Agar.io</h1>
+      <p>Revised from massively multiplayer online action game created by Matheus Valadares. At this time, player would fight with AI and challenge to get best score in 90 seconds.</p>
     </div>
     <agario/>
     <div class="flex-column">
-      <h1>Greenband 綠燈帶計算器</h1>
-      <p>挑戰在有限的綠燈時間下，讓最多比例的車輛能夠連續通過連鎖路口</p>
+      <h1>Greenband</h1>
+      <p>Optimize intersection "green band" in order to make the most proportion of vehicles to pass the traffic artery continuously.</p>
     </div>
     <greenband/>
     <div class="flex-column mt-50">
-        <h1>Tetris 俄羅斯方塊</h1>
-        <p>即便Tetris Battle已成為時代的眼淚，但COMBO技巧不會隨之而滅</p>
+        <h1>Tetris</h1>
+        <p>Tetris Battle's combo feature is still alive!</p>
     </div>
     <tetris/>
     <navbar/>
