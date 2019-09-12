@@ -30,32 +30,32 @@ export default {
         return {
             pages: [
               {
-                title:'Booking', bg:'#8bc34a', 
-                text: "A RWD hotel booking webpage (made with Penny's design pattern) that is featured with hademade date-range-picker and rendered by RESTful API.",
+                title:'House Hotel', bg:'#8bc34a', 
+                text: "House Hotel is a booking webpage made with Penny's design pattern that can response according to backend API. It was also built with handmake date-range-picker.",
                 img: booking,
                 href: 'https://billju.github.io/booking.github.io/',
               },
               {
                 title:'MV Box', bg:'#607d8b',
-                text:"A playlist oriented video player that is specified for desktop user, linked with Youtube API, deployed on Firebase and ranks popularity of videos. Also, users can estabalish their own playlists.", 
+                text:"MV Box is a playlist oriented video player which lets users to estabalish their own playlists. This website was deployed on Firebase and has functionality of ranking the popularity of videos.", 
                 img: musicplayer,
                 href: 'https://musicplayer-666.web.app/',
               },
               {
                 title:'Chatroom', bg:'#9e9e9e', 
-                text:"A fullstack chat app (made with JessHsu's design pattern) that used Socket.io and deployed on virtual machine. Users can send massage and image in realtime.",
+                text:"Chatroom is a fullstack chat app made with JessHsu's design pattern which is powered bt Socket.io. This app was deployed on virtual machine and allows users to send massage and upload image in real time.",
                 img: chatroom,
                 href: 'http://139.162.23.48:3000/',
               },
               {
                 title:'RaspberryPi', bg:'#4caf50', 
-                text:"A Codepen piece for animate.ss challenge. Also a challenge of flat design.",
+                text:"A Codepen piece of animate.ss challenge that follows prevailing flat design.",
                 img: raspberrypi,
                 href: 'https://codepen.io/HandsomeChuBoy/full/MmEoQj',
               },
               {
                 title:'Pomodoro', bg:'#e91e63', 
-                text:"A RWD pomodoro app that makes users' work most efficient. Try to take a break every 25-minutes-long intensive work.",
+                text:"Pomodoro is an web app whick makes users' work most efficient by taking a break after every 25-minutes-long intensive work.",
                 img: pomodoro,
                 href: 'https://codepen.io/HandsomeChuBoy/full/agMBRX',
               },

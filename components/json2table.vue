@@ -35,7 +35,10 @@
 export default {
     name: 'json-table',
     props: {
-      'rows': [Array,Object],
+      'rows': {
+          type: [Array,Object],
+          default: ()=>([])
+      },
       'toggle': Boolean, 
     },
     data(){return{selected:[]}},
@@ -71,19 +74,19 @@ export default {
     computed: {
         column(){
             let firstRow = Array.isArray(this.rows)&&this.rows.length>0?this.rows[0]:[]
-                let cols = Object.keys(firstRow).map(name=>{
+            let cols = Object.keys(firstRow).map(name=>{
                 let val = firstRow[name]
                 let isObject = val instanceof Object
                 let isArray = val instanceof Array
                 let isNested = isObject&&!isArray
                 let type = isNested?'Object':isArray?'Array':typeof val
                 return {
-                name: name,
-                isNested: isNested,
-                rowspan: isNested?1:2,
-                colspan: isNested?Object.keys(val).length:1,
-                subcols: isNested?Object.keys(val).map((sub,i,arr)=>({name,sub,type,rowspan:i==0?arr.length:0})):[],
-                type: type,
+                    name: name,
+                    isNested: isNested,
+                    rowspan: isNested?1:2,
+                    colspan: isNested?Object.keys(val).length:1,
+                    subcols: isNested?Object.keys(val).map((sub,i,arr)=>({name,sub,type,rowspan:i==0?arr.length:0})):[],
+                    type: type
                 }
             })
             let subcols = cols.flatMap(x=>x.subcols)

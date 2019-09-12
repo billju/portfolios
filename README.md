@@ -8,6 +8,7 @@
 3. inputs (counter, creditcard, swither, textinput)
 4. synth (knob, key, osc, spectrum, waveform)
 5. carousel (full page)
+6. json2table utils
 
 ## Games
 1. freecell
