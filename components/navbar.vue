@@ -7,10 +7,27 @@
         <div></div>
       </div>
       <ul class="navbar-menu">
-        <nuxt-link to="/projects"><li>Projects</li></nuxt-link>
-        <nuxt-link to="/handmade"><li>Components</li></nuxt-link>
-        <nuxt-link to="/games"><li>Games</li></nuxt-link>
-        <nuxt-link to="/"><li>About</li></nuxt-link>
+        <nuxt-link to="/projects">
+          <li v-if="$store.state.language=='zh'">專案</li>
+          <li v-if="$store.state.language=='en'">Projects</li>
+        </nuxt-link>
+        <nuxt-link to="/handmade">
+          <li v-if="$store.state.language=='zh'">手刻組件</li>
+          <li v-if="$store.state.language=='en'">Components</li>
+        </nuxt-link>
+        <nuxt-link to="/games">
+          <li v-if="$store.state.language=='zh'">經典遊戲</li>
+          <li v-if="$store.state.language=='en'">Games</li>
+        </nuxt-link>
+        <nuxt-link to="/">
+          <li v-if="$store.state.language=='zh'">關於</li>
+          <li v-if="$store.state.language=='en'">About</li>
+        </nuxt-link>
+        <li>
+          <span @click="$store.commit('setLanguage','zh')">繁中</span>
+          &nbsp;|&nbsp;
+          <span @click="$store.commit('setLanguage','en')">En</span>
+        </li>
       </ul>
     </div>
 </nav>
@@ -116,6 +133,13 @@ li {
   height: 50px;
   list-style-type: none;
   padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+li > span{
+  cursor: pointer;
 }
 a {
   height: 100%;

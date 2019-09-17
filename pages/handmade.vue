@@ -2,8 +2,10 @@
 <div ref="container">
     <div class="dark pt-50"><div class="row">
         <div class="col col-sm-12 col-md-6">
-            <h1>Spectrum &amp; Wavefrom</h1>
-            <p>Wave visualization component tools that transfer signal to visualizable shape by fast fourier transfrom.</p>
+            <h1 v-if="$store.state.language=='zh'">頻譜與波形</h1>
+            <h1 v-if="$store.state.language=='en'">Spectrum &amp; Wavefrom</h1>
+            <p v-if="$store.state.language=='zh'">透過快速傅立葉轉換而視覺化波形的組件</p>
+            <p v-if="$store.state.language=='en'">Wave visualization components that transfer signal to visualizable shape by fast fourier transfrom.</p>
             <table><tbody>
                 <tr><th>bind</th><th>type</th><th>description</th></tr>
                 <tr><td>audioContext</td><td>Object</td><td>naive audioContext class</td></tr>
@@ -15,8 +17,10 @@
             <waveform :audioContext="ctx" :input="this.biquadFilter"/>
         </div>
         <div class="col col-sm-12 col-md-6">
-            <h1>Oscillator</h1>
-            <p>A waveform generator which includes envelope modulation.</p>
+            <h1 v-if="$store.state.language=='zh'">振盪器</h1>
+            <h1 v-if="$store.state.language=='en'">Oscillator</h1>
+            <p v-if="$store.state.language=='zh'">含波封配置的音波產生器</p>
+            <p v-if="$store.state.language=='en'">A waveform generator which includes envelope modulation.</p>
             <table><tbody>
                 <tr><th>bind</th><th>type</th><th>description</th></tr>
                 <tr><td>audioContext</td><td>Object</td><td>naive audioContext class</td></tr>
@@ -33,8 +37,10 @@
             <osc ref="osc" :adsr="adsr" :audioContext="ctx" :detune="detune" :output="this.masterGain"/>    
         </div>
         <div class="col col-sm-12 col-md-6">
-            <h1>Pianokey</h1>
-            <p></p>
+            <h1 v-if="$store.state.language=='zh'">合成器琴鍵</h1>
+            <h1 v-if="$store.state.language=='en'">Pianokey</h1>
+            <p v-if="$store.state.language=='zh'">專門偵測使用者操作事件的組件</p>
+            <p v-if="$store.state.language=='en'">Pianokey is specified for dealing with user inputs.</p>
             <table><tbody>
                 <tr><th>bind</th><th>type</th><th>description</th></tr>
                 <tr><td>pianoKeys</td><td>Array</td><td>follows the format below</td></tr>
@@ -50,8 +56,10 @@
             </div>
         </div>
         <div class="col col-sm-12 col-md-6">
-            <h1>Knob</h1>
-            <p></p>
+            <h1 v-if="$store.state.language=='zh'">旋鈕</h1>
+            <h1 v-if="$store.state.language=='en'">Knob</h1>
+            <p v-if="$store.state.language=='zh'">直覺的範圍數字選擇器</p>
+            <p v-if="$store.state.language=='en'">Knob can make selecting a number from given range more intuitively.</p>
             <table><tbody>
                 <tr><th>bind</th><th>type</th><th>description</th></tr>
                 <tr><td>max</td><td>Number</td><td>upper bound</td></tr>
@@ -80,8 +88,10 @@
     </div></div>
     <div class="light"><div class="row">
         <div class="col col-sm-12 col-md-6">
-            <h1>date-picker</h1>
-            <p>Please click the outline styled button to toggle selection mode.</p>
+            <h1 v-if="$store.state.language=='zh'">日期挑選器</h1>
+            <h1 v-if="$store.state.language=='en'">Datepicker</h1>
+            <p v-if="$store.state.language=='zh'">配有年月日且可自由更換語系格式的月曆，點選中上方的按鈕切換輸入模式</p>
+            <p v-if="$store.state.language=='en'">Please click the outline styled button to toggle selection mode.</p>
             <table><tbody>
                 <tr><th>bind</th><th>type</th><th>demo</th></tr>
                 <tr><td>months</td><td>Array</td><td>Jan~Dec</td></tr>
@@ -119,8 +129,10 @@
 
     <div class="light"><div class="row">
         <div class="col col-sm-12 col-lg-4">
-            <h1>daterange-picker</h1>
-            <p>A general-purpose component for itinerary, hotel and filght reservation.</p>
+            <h1 v-if="$store.state.language=='zh'">日期範圍挑選器</h1>
+            <h1 v-if="$store.state.language=='en'">Date-range-picker</h1>
+            <p v-if="$store.state.language=='zh'">旅程、旅館、機票預訂的通用組件</p>
+            <p v-if="$store.state.language=='en'">A general-purpose component for itinerary, hotel and flight reservation.</p>
             <table><tbody>
                 <tr><th>bind</th><th>type</th><th>demo</th></tr>
                 <tr><td>banned</td><td>String</td><td>{{rangeBind.banned}}</td></tr>
@@ -144,8 +156,10 @@
             <stepper :steps="stp.steps" :index="stp.index*1" :background="color.primary"/>
         </div>
         <div class="col col-sm-12 col-lg-4">
-            <h1>stepper</h1>
-            <p>A general-purpose component for payment and instruction.</p>
+            <h1 v-if="$store.state.language=='zh'">步驟提示</h1>
+            <h1 v-if="$store.state.language=='en'">Stepper</h1>
+            <p v-if="$store.state.language=='zh'">付款或教學的通用組件</p>
+            <p v-if="$store.state.language=='en'">A general-purpose component for payment and instruction.</p>
             <table><tbody>
                 <tr><th>bind</th><th>type</th><th>demo</th></tr>
                 <tr><td>steps</td><td>Array</td><td>
@@ -159,8 +173,10 @@
             </tbody></table>
         </div>
         <div class="col col-sm-12 col-md-6 col-lg-4">
-            <h1>creditcard</h1>
-            <p>Input boxes that switch to next one automatically and have validation function.</p>
+            <h1 v-if="$store.state.language=='zh'">信用卡輸入</h1>
+            <h1 v-if="$store.state.language=='en'">Credit card</h1>
+            <p v-if="$store.state.language=='zh'">配有自動換行與驗證的輸入框</p>
+            <p v-if="$store.state.language=='en'">Input boxes that can switch to the next one automatically. Of course, validation function is included.</p>
             <table><tbody>
                 <tr><th>emit</th><th>type</th><th>demo</th></tr>
                 <tr><td>value.cardNumber</td><td>String</td><td>{{creditCard.cardNumber}}</td></tr>
@@ -178,8 +194,10 @@
 
     <div class="light"><div class="row">
         <div class="col col-sm-12 col-lg-6">
-            <h1>json2container</h1>
-            <p>A container which provides child component with control options. Try to click the grid with type of "Array" or "Object" to create more tables.</p>
+            <h1 v-if="$store.state.language=='zh'">JSON轉表格包裝器</h1>
+            <h1 v-if="$store.state.language=='en'">Json2container</h1>
+            <p v-if="$store.state.language=='zh'">提供子元件控制選項的高階組件，點擊陣列或是物件格式的的資料框來生產新的表格</p>
+            <p v-if="$store.state.language=='en'">Json2container provides child component with control options. Try to click the grid with type of "Array" or "Object" to create more tables.</p>
             <table><tbody>
                 <tr><th>bind</th><th>type</th><th>description</th></tr>
                 <tr><td>rows</td><td>Array</td><td>JSON</td></tr>
@@ -189,8 +207,10 @@
                 <tr><td>close-table</td><td>String</td><td>clear the table</td></tr>
             </tbody></table>
 
-            <h1>json2table</h1>
-            <p>A component which transfers massive json data to readable two-dimensional table format and hightlight column by clicking.</p>
+            <h1 v-if="$store.state.language=='zh'">JSON轉表格</h1>
+            <h1 v-if="$store.state.language=='en'">Json2table</h1>
+            <p v-if="$store.state.language=='zh'">將大量JSON資料轉換成二維可視化的格式，點選欄位還可以標記</p>
+            <p v-if="$store.state.language=='en'">Json2table which transfers massive JSON data to readable two-dimensional table format. Table columns can be highlighted by clicking.</p>
             <table><tbody>
                 <tr><th>bind</th><th>type</th><th>description</th></tr>
                 <tr><td>rows</td><td>Array</td><td>JSON</td></tr>
