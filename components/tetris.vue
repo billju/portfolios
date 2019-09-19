@@ -170,7 +170,7 @@ export default {
             spawnNewBlock: false,
             interval: 500,
             timeout: null,
-            menu: true, hint: false,
+            menu: true, hint: false, moveRight:false, moveLeft:false,moveInterval: null,
         }
     },
     methods:{
@@ -310,7 +310,7 @@ export default {
             this.shadowB = {}
             this.shadowB.arr = this.dropB.arr.map(x=>x.slice())
             while(this.shadowB.arr.every(x=>x[0]<19 && this.coord[x[0]+1][x[1]]==0)){
-                this.shadowB.arr.map(x=> x[0]+=1 )
+                this.shadowB.arr.map(x=>{x[0]+=1})
             }
             this.dropB.arr.map(x=>{this.coord[x[0]][x[1]] = this.dropB.idx+1})
             this.$set(this.coord, 0, this.coord[0])
@@ -391,13 +391,23 @@ export default {
                     if(!this.spawnNewBlock) this.spaceDown()
                     break;
                 case 37:
-                    this.move('left')
+                    if(!this.moveLeft){
+                        this.move('left')
+                        clearInterval(this.moveInterval)
+                        this.moveInterval = setInterval(()=>{this.move('left')},150)
+                        this.moveLeft = true
+                    }
                     break;
                 case 38: //up arrow
                     this.spinBlock(true);
                     break;
                 case 39:
-                    this.move('right')
+                    if(!this.moveRight){
+                        this.move('right')
+                        clearInterval(this.moveInterval)
+                        this.moveInterval = setInterval(()=>{this.move('right')},150)
+                        this.moveRight = true
+                    }
                     break;
                 case 40:
                     this.move('down');
@@ -408,8 +418,28 @@ export default {
                 case 90: //Z
                     this.spinBlock(false);
                     break;
-                default:
-                   break;
+                default: break;
+            }
+        },
+        handleKeyup(e){
+            switch(e.which){
+                case 37:
+                    this.moveLeft = false
+                    clearInterval(this.moveInterval)
+                    if(this.moveRight){
+                        this.move('right')
+                        this.moveInterval = setInterval(()=>{this.move('right')},150)
+                    }
+                    break;
+                case 39:
+                    this.moveRight = false
+                    clearInterval(this.moveInterval)
+                    if(this.moveLeft){
+                        this.move('left')   
+                        this.moveInterval = setInterval(()=>{this.move('left')},150)
+                    }
+                    break;
+                default: break;
             }
         }
     },
@@ -424,9 +454,11 @@ export default {
         //this.main()
         //this.countDown()
         window.addEventListener('keydown',this.handleKeydown)
+        window.addEventListener('keyup',this.handleKeyup)
     },
     beforeDestroy(){
         window.removeEventListener('keydown',this.handleKeydown)
+        window.removeEventListener('keyup',this.handleKeyup)
     }
 }
 </script>
